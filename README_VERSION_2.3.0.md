@@ -1,10 +1,17 @@
 # Aevum Iter · Versión AIPROD2.3.0
 
-> **Versión completa actual: `AIPROD2.3.0_R4_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.3.0_R5_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **3**, actualizaciones medianas **0**,
-> revisión **4**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **5**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R4 (actual): fichas locales y limpieza
+## Revisión R5 (actual): limpieza visual
+
+- Fuera dependencia `url_launcher` (cero usos tras las fichas locales) + `flutter pub get`.
+- Fuera ruta `/privacy` (nadie navegaba a ella; el aviso vive como diálogo) y clase `PrivacyPage`.
+- Corrección de registro: `test_progress_tree_page.dart` sí se usa (tab del home) — no se toca.
+- `pubspec.yaml` → `2.3.0+5`; pie del aviso → `AIPROD2.3.0_R5_IN`; `flutter analyze` limpio.
+
+## Revisión R4: fichas locales y limpieza
 
 - **Fichas HTML por carrera**: 11 archivos en `assets/careers/` (diseño de prueba azul, plan/campo mock + aviso de demostración), registrados en `pubspec.yaml`.
 - **Visor in-app**: `career_site_page.dart` (WebView sin JS, sin navegación externa) + ruta `/career-site?career=`; el detalle de carrera ahora siempre muestra `Ver ficha de la carrera` en vez del diálogo `Página oficial no disponible`. Dep `webview_flutter` agregada.

@@ -18,7 +18,6 @@ import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/history/presentation/pages/test_history_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
-import '../../features/settings/presentation/pages/privacy_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
@@ -47,6 +46,5 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/edit-profile', builder: (_, __) => const EditProfilePage()),
     GoRoute(path: '/history', builder: (_, __) => const TestHistoryPage()),
     GoRoute(path: '/settings', builder: (_, __) => const SettingsPage()),
-    GoRoute(path: '/privacy', builder: (_, __) => const PrivacyPage()),
   ],
 );
