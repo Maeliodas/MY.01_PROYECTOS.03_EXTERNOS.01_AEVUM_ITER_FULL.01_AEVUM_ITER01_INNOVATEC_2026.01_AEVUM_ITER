@@ -157,7 +157,6 @@ class AppDatabase {
         FOREIGN KEY(language_id) REFERENCES ${Tables.languages}(id)
       )
     ''');
-    await db.execute('CREATE TABLE ${Tables.avatar}(id INTEGER PRIMARY KEY CHECK(id=1), base_avatar_id TEXT, hair_style TEXT, hair_color TEXT, outfit TEXT, accessory TEXT, skin_tone TEXT)');
     await db.execute('CREATE TABLE ${Tables.sessions}(id TEXT PRIMARY KEY, started_at TEXT NOT NULL, completed_at TEXT, current_index INTEGER NOT NULL DEFAULT 0, question_order TEXT NOT NULL, open_answer TEXT)');
     await db.execute('''
       CREATE TABLE ${Tables.answers}(

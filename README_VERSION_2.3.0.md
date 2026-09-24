@@ -1,10 +1,17 @@
 # Aevum Iter · Versión AIPROD2.3.0
 
-> **Versión completa actual: `AIPROD2.3.0_R3_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.3.0_R4_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **3**, actualizaciones medianas **0**,
-> revisión **3**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **4**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R3 (actual): recorte comercial
+## Revisión R4 (actual): fichas locales y limpieza
+
+- **Fichas HTML por carrera**: 11 archivos en `assets/careers/` (diseño de prueba azul, plan/campo mock + aviso de demostración), registrados en `pubspec.yaml`.
+- **Visor in-app**: `career_site_page.dart` (WebView sin JS, sin navegación externa) + ruta `/career-site?career=`; el detalle de carrera ahora siempre muestra `Ver ficha de la carrera` en vez del diálogo `Página oficial no disponible`. Dep `webview_flutter` agregada.
+- **Limpieza segura**: eliminado `simple_avatar_editor_page.dart` (huérfana) y tabla muerta `avatar_configuration` (`app_database.dart`, `tables.dart`); seed con duplicados desactivados (`cbtis107`, `other_school`, respaldo en `/tmp/opencode/seed_v15_backup.db`).
+- `pubspec.yaml` → `2.3.0+4`; pie del aviso → `AIPROD2.3.0_R4_IN`; `flutter analyze` limpio.
+
+## Revisión R3: recorte comercial
 
 - **Sugerencias**: sin UI que eliminar — no existen pantallas ni botones de sugerir lengua/escuela en la app; solo plomería dormida de backend (`catalog_sync_service.suggest/suggestSchool`, tabla `catalog_suggestion_queue`). Se deja intacta para no romper el esquema SQLite.
 - **Historial**: se mantiene (`/history` + menú).
@@ -12,7 +19,7 @@
 - **Sync silencioso**: eliminada la sección `DATOS Y CATÁLOGOS` (botón manual `Actualizar catálogos`) de `settings_page.dart`; el sync sigue automático (splash acotado + en vivo). Import sin uso removido.
 - **Privacidad extensa**: `privacy_page.dart` reescrito a aviso integral de 13 secciones (responsable, datos, sensibles, finalidades, consentimiento, transferencias, almacenamiento, seguridad, conservación, ARCO, menores, cambios, contacto) con marca `Aevum Iter` vía `AppConstants.appName`. Sin textos `ITTUX` en el proyecto (verificado). Subtítulo de Ayuda: `Presentación comercial`.
 - **Debug**: se mantiene el `debugPrint` de `main.dart` (imprime URL y key de API al arrancar para diagnóstico; no afecta la UI).
-- **Versión propagada**: `pubspec.yaml` → `2.3.0+3` (cubre `versionName/Code` de Android), título web → `Aevum Iter`, pie del aviso → `AIPROD2.3.0_R3_IN`.
+- **Versión propagada (R3)**: `pubspec.yaml` → `2.3.0+3` (luego `2.3.0+4` en R4), título web → `Aevum Iter`, pie del aviso actualizado.
 - `flutter analyze`: sin issues.
 
 ## Revisión R2: identidad

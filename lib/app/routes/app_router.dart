@@ -13,6 +13,7 @@ import '../../features/result/presentation/pages/result_unlocked_page.dart';
 import '../../features/result/presentation/pages/result_analysis_page.dart';
 import '../../features/result/presentation/pages/career_ranking_page.dart';
 import '../../features/result/presentation/pages/result_detail_page.dart';
+import '../../features/result/presentation/pages/career_site_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/profile/presentation/pages/edit_profile_page.dart';
 import '../../features/history/presentation/pages/test_history_page.dart';
@@ -41,6 +42,7 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/result-unlocked', builder: (_, __) => const ResultUnlockedPage()),
     GoRoute(path: '/career-ranking', builder: (_, __) => const CareerRankingPage()),
     GoRoute(path: '/result-detail', builder: (_, state) => ResultDetailPage(careerId: state.uri.queryParameters['career'])),
+    GoRoute(path: '/career-site', builder: (_, state) => CareerSitePage(careerId: state.uri.queryParameters['career'])),
     GoRoute(path: '/profile', builder: (_, __) => const ProfilePage()),
     GoRoute(path: '/edit-profile', builder: (_, __) => const EditProfilePage()),
     GoRoute(path: '/history', builder: (_, __) => const TestHistoryPage()),

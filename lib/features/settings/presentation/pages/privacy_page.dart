@@ -72,7 +72,7 @@ Widget _privacyContent(BuildContext context) {
       ),
       const SizedBox(height: 4),
       Text(
-        'Última actualización de este texto: versión AIPROD2.3.0_R3_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
+        'Última actualización de este texto: versión AIPROD2.3.0_R4_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
         style: TextStyle(fontSize: 12, color: muted),
       ),
     ],

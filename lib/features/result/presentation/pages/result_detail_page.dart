@@ -1,11 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../app/theme/app_colors.dart';
 import '../../../../core/widgets/app_back_button.dart';
-import '../../../../core/widgets/app_notice_dialog.dart';
 import '../../../catalog/domain/models/catalog_models.dart';
 import '../../../catalog/presentation/providers/catalog_providers.dart';
 import '../providers/result_provider.dart';
@@ -141,16 +140,10 @@ class ResultDetailPage extends ConsumerWidget {
                   ...['R','I','A','S','E','C'].map((d) => _CompareBar(label: '${_names[d]} ($d)', student: student[d] ?? 0, career: ((career.weights[d] ?? 0) / 10 * 100))),
                 ])),
                 const SizedBox(height: 18),
-                if (career.websiteUrl.trim().isNotEmpty)
-                  FilledButton.icon(
-                    onPressed: () => launchUrl(Uri.parse(career.websiteUrl), mode: LaunchMode.externalApplication),
-                    icon: const Icon(Icons.open_in_new_rounded), label: const Text('Consultar página oficial'),
-                  )
-                else
-                  OutlinedButton.icon(
-                    onPressed: () => showAppNoticeDialog(context, icon: Icons.language_rounded, title: 'Página no disponible', content: const Text('La página oficial de esta carrera todavía no está disponible.', textAlign: TextAlign.center)),
-                    icon: const Icon(Icons.language_rounded), label: const Text('Página oficial no disponible'),
-                  ),
+                FilledButton.icon(
+                  onPressed: () => context.push('/career-site?career=${career.id}'),
+                  icon: const Icon(Icons.open_in_new_rounded), label: const Text('Ver ficha de la carrera'),
+                ),
               ],
             );
           },
