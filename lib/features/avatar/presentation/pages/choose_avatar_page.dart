@@ -58,7 +58,7 @@ class ChooseAvatarPage extends ConsumerWidget {
     final notifier = ref.read(avatarProvider.notifier);
     return Scaffold(
       body: DecoratedBox(
-        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0F160D),Color(0xFF152013),Color(0xFF101B18)] : const [Color(0xFFF4FBF7),Color(0xFFF7FAF8),Color(0xFFEAF7F0)])),
+        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0A1428),Color(0xFF10203A),Color(0xFF0C1A33)] : const [Color(0xFFF3F8FF),Color(0xFFF7FAFF),Color(0xFFE9F1FF)])),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 8, 24, 18),
@@ -77,7 +77,7 @@ class ChooseAvatarPage extends ConsumerWidget {
                   return GestureDetector(onTap: () => notifier.selectAvatar(path), child: AnimatedContainer(duration: const Duration(milliseconds: 180), padding: const EdgeInsets.all(5), decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface.withValues(alpha: .88), borderRadius: BorderRadius.circular(24), border: Border.all(color: active ? AppColors.primary : Colors.transparent, width: 4)), child: Stack(fit: StackFit.expand, children: [ClipRRect(borderRadius: BorderRadius.circular(18), child: Image.asset(path, fit: BoxFit.cover)), if(active) const Positioned(right: 4, top: 4, child: CircleAvatar(radius: 14, backgroundColor: AppColors.primary, child: Icon(Icons.check_rounded, color: Colors.white, size: 18)))])));
                 },
               )),
-              SecondaryButton(text: 'Elegir otra', onPressed: () => _goCustom(context)),
+              SecondaryButton(text: 'Elegir otro avatar', onPressed: () => _goCustom(context)),
               const SizedBox(height: 10),
               PrimaryButton(text: returnToProfile ? 'Guardar avatar' : 'Continuar', icon: Icons.arrow_forward_rounded, onPressed: () => _finish(context, ref)),
             ]),

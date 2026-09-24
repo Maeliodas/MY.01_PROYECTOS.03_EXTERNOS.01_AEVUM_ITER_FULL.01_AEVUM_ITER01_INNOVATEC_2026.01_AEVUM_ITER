@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/constants/app_constants.dart';
 
 import '../../../../app/theme/app_colors.dart';
-import '../../../catalog/presentation/providers/catalog_providers.dart';
 import '../providers/settings_provider.dart';
 import 'privacy_page.dart';
 
@@ -19,7 +18,7 @@ class SettingsPage extends ConsumerWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(22, 8, 22, 30),
         children: [
-          const Text('PREFERENCIAS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
+          const Text('PREFERENCIAS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: 1.1)),
           const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
@@ -32,70 +31,7 @@ class SettingsPage extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 26),
-          const Text('DATOS Y CATÁLOGOS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
-          const SizedBox(height: 10),
-          Container(
-            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
-            child: ListTile(
-              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-              leading: Container(width: 42, height: 42, decoration: BoxDecoration(color: const Color(0xFF00923F).withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.sync_rounded, color: Color(0xFF00923F))),
-              title: const Text('Actualizar catálogos', style: TextStyle(fontWeight: FontWeight.w900)),
-              subtitle: const Text('Descarga cambios aprobados del panel y los guarda en SQLite.'),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () async {
-                final messenger = ScaffoldMessenger.of(context);
-                // Pantalla de espera: la descarga por ngrok puede tardar varios
-                // segundos y sin indicador parece que la app se trabó.
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (dialogContext) => AlertDialog(
-                    content: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: CircularProgressIndicator(strokeWidth: 2.8),
-                        ),
-                        const SizedBox(width: 16),
-                        Flexible(
-                          child: Text(
-                            'Actualizando catálogos…',
-                            style: TextStyle(
-                              color: Theme.of(dialogContext).colorScheme.onSurface,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-                bool ok = false;
-                try {
-                  ok = await ref
-                      .read(catalogSyncServiceProvider)
-                      .sync()
-                      .timeout(const Duration(seconds: 60));
-                } catch (_) {
-                  ok = false;
-                } finally {
-                  if (context.mounted) Navigator.of(context, rootNavigator: true).pop();
-                }
-                if (ok) {
-                  ref.invalidate(statesProvider);
-                  ref.invalidate(schoolsProvider);
-                  ref.invalidate(allLanguagesProvider);
-                  ref.invalidate(careersCatalogProvider);
-                  ref.invalidate(departmentQuestionsProvider);
-                }
-                messenger.showSnackBar(SnackBar(content: Text(ok ? 'Catálogos actualizados.' : 'No fue posible actualizar. Se conservaron los datos locales.')));
-              },
-            ),
-          ),
-          const SizedBox(height: 26),
-          const Text('PRIVACIDAD Y SOPORTE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
+          const Text('PRIVACIDAD Y SOPORTE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: 1.1)),
           const SizedBox(height: 10),
           Container(
             decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
@@ -103,7 +39,7 @@ class SettingsPage extends ConsumerWidget {
               children: [
                 _Info(icon: Icons.lock_outline_rounded, iconColor: const Color(0xFF18A9D3), title: 'Aviso de privacidad', subtitle: 'Consulta qué datos utiliza ${AppConstants.appName} y para qué fines.', onTap: () => showPrivacyNoticeDialog(context)),
                 const Divider(height: 1, indent: 70),
-                const _Info(icon: Icons.help_outline_rounded, iconColor: Color(0xFF7432CE), title: 'Ayuda', subtitle: '${AppConstants.appName} · Prototipo funcional'),
+                const _Info(icon: Icons.help_outline_rounded, iconColor: Color(0xFF7432CE), title: 'Ayuda', subtitle: '${AppConstants.appName} · Presentación comercial'),
               ],
             ),
           ),

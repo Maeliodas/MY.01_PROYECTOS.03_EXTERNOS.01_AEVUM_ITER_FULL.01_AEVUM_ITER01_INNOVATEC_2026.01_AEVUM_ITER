@@ -43,7 +43,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Scaffold(
       body: DecoratedBox(
         decoration: BoxDecoration(
-          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0F160D), Color(0xFF152013), Color(0xFF101B18)] : const [Color(0xFFF7FFE8), Color(0xFFF4FAE8), Color(0xFFE8FFF7)]),
+          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0A1428), Color(0xFF10203A), Color(0xFF0C1A33)] : const [Color(0xFFF2F7FF), Color(0xFFF0F4FF), Color(0xFFE9F3FF)]),
         ),
         child: SafeArea(
           child: Padding(
@@ -54,9 +54,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   children: [
                     if (index > 0)
                       AppBackButton(onPressed: () => _controller.previousPage(duration: const Duration(milliseconds: 280), curve: Curves.easeOut)),
-                    const Text(AppConstants.appName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF00923F))),
+                    const Text(AppConstants.appName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF0262FC))),
                     const Spacer(),
-                    TextButton(onPressed: () => context.go('/choose-avatar'), child: const Text('SALTAR', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1))),
+                    TextButton(onPressed: () => context.go('/choose-avatar'), child: const Text('SALTAR', style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: 1))),
                   ],
                 ),
                 Expanded(
@@ -101,11 +101,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             ),
                           ),
                           const SizedBox(height: 34),
-                          Text(p.title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 34, height: 1.02, fontWeight: FontWeight.w900, color: Color(0xFF101510))),
+                          Text(p.title, textAlign: TextAlign.center, style: const TextStyle(fontSize: 34, height: 1.02, fontWeight: FontWeight.w900, color: Color(0xFF0F141F))),
                           const SizedBox(height: 18),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(p.description, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, height: 1.4, color: Color(0xFF5D6258))),
+                            child: Text(p.description, textAlign: TextAlign.center, style: const TextStyle(fontSize: 18, height: 1.4, color: Color(0xFF5A6068))),
                           ),
                         ],
                       );
@@ -119,7 +119,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     width: i == index ? 34 : 10,
                     height: 10,
                     margin: const EdgeInsets.symmetric(horizontal: 4),
-                    decoration: BoxDecoration(color: i == index ? AppColors.primary : const Color(0xFFDDE5D2), borderRadius: BorderRadius.circular(12)),
+                    decoration: BoxDecoration(color: i == index ? AppColors.primary : const Color(0xFFDCE4F0), borderRadius: BorderRadius.circular(12)),
                   )),
                 ),
                 const SizedBox(height: 26),

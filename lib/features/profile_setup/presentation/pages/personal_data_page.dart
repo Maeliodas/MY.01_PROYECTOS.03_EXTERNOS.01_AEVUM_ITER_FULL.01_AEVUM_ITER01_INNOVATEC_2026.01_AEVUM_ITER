@@ -37,7 +37,7 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0F160D),Color(0xFF152013),Color(0xFF101B18)] : const [Color(0xFFF8FFE9),Color(0xFFF4F8E8),Color(0xFFE9FFF7)])),
+        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft,end: Alignment.bottomRight,colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0A1428),Color(0xFF10203A),Color(0xFF0C1A33)] : const [Color(0xFFF2F7FF),Color(0xFFF0F4FF),Color(0xFFEAF3FF)])),
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
@@ -57,7 +57,7 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
                   ],
                 ),
                 const SizedBox(height: 34),
-                const Align(alignment: Alignment.centerLeft, child: Text('TU NOMBRE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.4))),
+                const Align(alignment: Alignment.centerLeft, child: Text('TU NOMBRE', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: 1.4))),
                 const SizedBox(height: 8),
                 TextField(controller: nameController, textCapitalization: TextCapitalization.words, decoration: const InputDecoration(prefixIcon: Icon(Icons.person_outline_rounded), hintText: 'Escribe tu nombre aquí...')),
                 const SizedBox(height: 14),

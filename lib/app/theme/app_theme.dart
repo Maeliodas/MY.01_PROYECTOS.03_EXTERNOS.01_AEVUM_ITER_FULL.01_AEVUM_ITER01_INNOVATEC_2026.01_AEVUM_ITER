@@ -8,19 +8,19 @@ class AppTheme {
 
   static ThemeData _theme(Brightness brightness) {
     final dark = brightness == Brightness.dark;
-    final background = dark ? const Color(0xFF0F160D) : AppColors.background;
-    final surface = dark ? const Color(0xFF182116) : const Color(0xFFFFFFFF);
-    final surfaceVariant = dark ? const Color(0xFF202B1D) : const Color(0xFFF1F8E8);
-    final textPrimary = dark ? const Color(0xFFF3F6EF) : AppColors.textPrimary;
-    final textSecondary = dark ? const Color(0xFFB8C2B2) : AppColors.textSecondary;
-    final border = dark ? const Color(0xFF34412F) : AppColors.borderGray;
+    final background = dark ? const Color(0xFF0A1428) : AppColors.background;
+    final surface = dark ? const Color(0xFF101D33) : const Color(0xFFFFFFFF);
+    final surfaceVariant = dark ? const Color(0xFF182747) : const Color(0xFFEAF1FF);
+    final textPrimary = dark ? const Color(0xFFF2F6FF) : AppColors.textPrimary;
+    final textSecondary = dark ? const Color(0xFFB9C4D6) : AppColors.textSecondary;
+    final border = dark ? const Color(0xFF2C3D5A) : AppColors.borderGray;
 
     final scheme = ColorScheme.fromSeed(
       seedColor: AppColors.primary,
       brightness: brightness,
     ).copyWith(
       primary: AppColors.primary,
-      onPrimary: const Color(0xFF18320B),
+      onPrimary: const Color(0xFFFFFFFF),
       surface: surface,
       onSurface: textPrimary,
       surfaceContainerHighest: surfaceVariant,
@@ -35,7 +35,7 @@ class AppTheme {
       colorScheme: scheme,
       cardColor: surface,
       dividerColor: border,
-      disabledColor: dark ? const Color(0xFF677064) : const Color(0xFFA4AA9E),
+      disabledColor: dark ? const Color(0xFF6B7686) : const Color(0xFFA6AEBD),
       textTheme: ThemeData(brightness: brightness).textTheme.apply(
         bodyColor: textPrimary,
         displayColor: textPrimary,
@@ -109,7 +109,7 @@ class AppTheme {
                 ? FontWeight.w800
                 : FontWeight.w600,
             color: states.contains(WidgetState.selected)
-                ? const Color(0xFF17340A)
+                ? const Color(0xFFFFFFFF)
                 : textSecondary,
           ),
         ),
@@ -117,7 +117,7 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: dark
-            ? const Color(0xFF202B1E)
+            ? const Color(0xFF16233C)
             : Colors.white.withValues(alpha: .78),
         hintStyle: TextStyle(color: textSecondary),
         labelStyle: TextStyle(color: textSecondary),
@@ -144,12 +144,12 @@ class AppTheme {
         thumbColor: WidgetStateProperty.resolveWith(
           (states) => states.contains(WidgetState.selected)
               ? AppColors.primary
-              : (dark ? const Color(0xFF899083) : const Color(0xFFF8FAF6)),
+              : (dark ? const Color(0xFF8B94A6) : const Color(0xFFF7FAFF)),
         ),
         trackColor: WidgetStateProperty.resolveWith(
           (states) => states.contains(WidgetState.selected)
               ? AppColors.primary.withValues(alpha: .35)
-              : (dark ? const Color(0xFF3A4536) : const Color(0xFFDCE3D6)),
+              : (dark ? const Color(0xFF35415A) : const Color(0xFFD5DFF0)),
         ),
       ),
     );

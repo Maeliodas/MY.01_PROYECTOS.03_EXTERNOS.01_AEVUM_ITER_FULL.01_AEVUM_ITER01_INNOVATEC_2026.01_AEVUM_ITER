@@ -44,8 +44,8 @@ class TestProgressTreePage extends ConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: Theme.of(context).brightness == Brightness.dark
-                ? const [Color(0xFF0F160D), Color(0xFF121A10), Color(0xFF102019)]
-                : const [Color(0xFFF7FFE9), Color(0xFFF4F8E9), Color(0xFFE9FFF8)],
+                ? const [Color(0xFF0A1428), Color(0xFF0D1830), Color(0xFF0B1730)]
+                : const [Color(0xFFF2F7FF), Color(0xFFF1F5FF), Color(0xFFEAF3FF)],
           ),
         ),
         child: SafeArea(
@@ -64,7 +64,7 @@ class TestProgressTreePage extends ConsumerWidget {
                       style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w900,
-                        color: Color(0xFF00923F),
+                        color: Color(0xFF0262FC),
                       ),
                     ),
                   ),
@@ -73,7 +73,7 @@ class TestProgressTreePage extends ConsumerWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xFF00923F),
+                      color: Color(0xFF0262FC),
                     ),
                   ),
                 ],
@@ -133,7 +133,7 @@ class TestProgressTreePage extends ConsumerWidget {
                             child: LinearProgressIndicator(
                               value: percentage / 100,
                               minHeight: 9,
-                              backgroundColor: const Color(0xFFE1E7DB),
+                              backgroundColor: const Color(0xFFE2E8F0),
                               valueColor: const AlwaysStoppedAnimation(
                                 Color(0xFF17A9D4),
                               ),
@@ -161,9 +161,9 @@ class TestProgressTreePage extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(34),
                     gradient: const LinearGradient(
                       colors: [
-                        Color(0xFFB8DD8E),
-                        Color(0xFF61A97A),
-                        Color(0xFF8ED0C4),
+                        Color(0xFF8FBEFF),
+                        Color(0xFF0262FC),
+                        Color(0xFF8FD8F8),
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -328,7 +328,7 @@ class _Node extends StatelessWidget {
     final secondary = Theme.of(context).colorScheme.onSurface.withValues(alpha: .58);
     final circleColor = done || active
         ? AppColors.primary
-        : (dark ? const Color(0xFF2D3829) : const Color(0xFFDDE6D5));
+        : (dark ? const Color(0xFF232F45) : const Color(0xFFDCE4F0));
 
     return Semantics(
       button: enabled,
@@ -429,7 +429,7 @@ class _ActionButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           backgroundColor: AppColors.primary,
-          foregroundColor: const Color(0xFF18320B),
+          foregroundColor: const Color(0xFFFFFFFF),
           elevation: 3,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),

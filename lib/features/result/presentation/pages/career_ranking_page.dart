@@ -49,7 +49,7 @@ class CareerRankingPage extends ConsumerWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.surface,
                     borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: top ? AppColors.primary : const Color(0xFFE5ECD9), width: top ? 2 : 1),
+                    border: Border.all(color: top ? AppColors.primary : const Color(0xFFE2E9F3), width: top ? 2 : 1),
                     boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: .045), blurRadius: 14, offset: const Offset(0, 6))],
                   ),
                   child: Column(
@@ -57,7 +57,7 @@ class CareerRankingPage extends ConsumerWidget {
                     children: [
                       Text(
                         i == 0 ? '1.er lugar' : '${i + 1}.º lugar',
-                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: top ? const Color(0xFF00923F) : const Color(0xFF66746A)),
+                        style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: top ? const Color(0xFF0262FC) : const Color(0xFF5F6B7A)),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -74,7 +74,7 @@ class CareerRankingPage extends ConsumerWidget {
                         child: LinearProgressIndicator(
                           value: career.affinityPercentage / 100,
                           minHeight: 7,
-                          backgroundColor: const Color(0xFFE4EBDD),
+                          backgroundColor: const Color(0xFFE3EAF4),
                           valueColor: AlwaysStoppedAnimation(top ? AppColors.primary : const Color(0xFF18A9D3)),
                         ),
                       ),

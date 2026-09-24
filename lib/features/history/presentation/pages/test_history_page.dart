@@ -23,8 +23,8 @@ class TestHistoryPage extends ConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: Theme.of(context).brightness == Brightness.dark
-                ? const [Color(0xFF0F160D), Color(0xFF121A10), Color(0xFF102019)]
-                : const [Color(0xFFF7FFE9), Color(0xFFF5F9EC), Color(0xFFECFFF8)],
+                ? const [Color(0xFF0A1428), Color(0xFF0D1830), Color(0xFF0B1730)]
+                : const [Color(0xFFF2F7FF), Color(0xFFF2F6FF), Color(0xFFEAF4FF)],
           ),
         ),
         child: SafeArea(
@@ -130,12 +130,12 @@ class _HistoryCard extends StatelessWidget {
                 width: 54,
                 height: 54,
                 decoration: const BoxDecoration(
-                  color: Color(0xFFEAF8D9),
+                  color: Color(0xFFDFEBFF),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(
                   Icons.workspace_premium_rounded,
-                  color: Color(0xFF00923F),
+                  color: Color(0xFF0262FC),
                   size: 29,
                 ),
               ),
@@ -231,7 +231,7 @@ class _HistoryCard extends StatelessWidget {
                   width: 46,
                   height: 5,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFD5DDCE),
+                    color: const Color(0xFFD4DFF0),
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),
@@ -256,7 +256,7 @@ class _HistoryCard extends StatelessWidget {
                   fontSize: 11,
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1,
-                  color: Color(0xFF00923F),
+                  color: Color(0xFF0262FC),
                 ),
               ),
               const SizedBox(height: 12),
@@ -270,7 +270,7 @@ class _HistoryCard extends StatelessWidget {
                     fontSize: 11,
                     fontWeight: FontWeight.w900,
                     letterSpacing: 1,
-                    color: Color(0xFF00923F),
+                    color: Color(0xFF0262FC),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -294,7 +294,7 @@ class _HistoryCard extends StatelessWidget {
                           '${career.affinity.round()}%',
                           style: const TextStyle(
                             fontWeight: FontWeight.w900,
-                            color: Color(0xFF00923F),
+                            color: Color(0xFF0262FC),
                           ),
                         ),
                       ],
@@ -333,7 +333,7 @@ class _ScoreBar extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: normalized,
                 minHeight: 8,
-                backgroundColor: const Color(0xFFE0E8D8),
+                backgroundColor: const Color(0xFFE0E7F2),
                 valueColor: const AlwaysStoppedAnimation(AppColors.primary),
               ),
             ),

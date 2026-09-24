@@ -12,8 +12,8 @@ class AppBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = Theme.of(context).brightness == Brightness.dark;
     final background = dark
-        ? const Color(0xFF173C2A)
-        : const Color(0xFFE2F2E7);
+        ? const Color(0xFF1B2E52)
+        : const Color(0xFFE2EDFF);
     return Padding(
       padding: const EdgeInsets.all(6),
       child: Material(
@@ -28,7 +28,7 @@ class AppBackButton extends StatelessWidget {
             child: Icon(
               Icons.arrow_back_ios_new_rounded,
               size: 18,
-              color: dark ? const Color(0xFF70D89B) : AppColors.primary,
+              color: dark ? const Color(0xFF8FB8FF) : AppColors.primary,
             ),
           ),
         ),

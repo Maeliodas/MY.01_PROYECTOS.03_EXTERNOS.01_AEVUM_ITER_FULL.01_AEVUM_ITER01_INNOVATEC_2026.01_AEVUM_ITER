@@ -67,8 +67,8 @@ class _ResultAnalysisPageState extends State<ResultAnalysisPage>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: Theme.of(context).brightness == Brightness.dark
-                ? const [Color(0xFF0F160D), Color(0xFF121A10), Color(0xFF102019)]
-                : const [Color(0xFFF7FFE9), Color(0xFFF2F9E8), Color(0xFFE9FFF8)],
+                ? const [Color(0xFF0A1428), Color(0xFF0D1830), Color(0xFF0B1730)]
+                : const [Color(0xFFF2F7FF), Color(0xFFEFF4FF), Color(0xFFEAF3FF)],
           ),
         ),
         child: SafeArea(
@@ -105,7 +105,7 @@ class _ResultAnalysisPageState extends State<ResultAnalysisPage>
                             height: 128,
                             child: CircularProgressIndicator(
                               strokeWidth: 8,
-                              backgroundColor: Color(0xFFE3ECD9),
+                              backgroundColor: Color(0xFFE2E9F3),
                               valueColor: AlwaysStoppedAnimation(
                                 Color(0xFF6F24CB),
                               ),
@@ -158,7 +158,7 @@ class _ResultAnalysisPageState extends State<ResultAnalysisPage>
                       fontSize: 11,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 1.4,
-                      color: Color(0xFF00923F),
+                      color: Color(0xFF0262FC),
                     ),
                   ),
                 ],

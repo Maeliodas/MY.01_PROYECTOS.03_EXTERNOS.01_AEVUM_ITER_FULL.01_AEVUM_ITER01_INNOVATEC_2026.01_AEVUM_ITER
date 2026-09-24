@@ -104,8 +104,8 @@ class _SplashPageState extends ConsumerState<SplashPage> {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: dark
-                ? const [Color(0xFF071E17), Color(0xFF0A2B20), Color(0xFF071812)]
-                : const [Color(0xFFF7FFE9), Color(0xFFF3F8E7), Color(0xFFE9FFF8)],
+                ? const [Color(0xFF0A1A33), Color(0xFF0F2A4D), Color(0xFF0A1830)]
+                : const [Color(0xFFF2F7FF), Color(0xFFEFF4FF), Color(0xFFEAF3FF)],
           ),
         ),
         child: SafeArea(
@@ -123,7 +123,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                           height: 122,
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: dark ? const Color(0xFF0D382A) : Colors.white,
+                            color: dark ? const Color(0xFF12305C) : Colors.white,
                             borderRadius: BorderRadius.circular(32),
                             border: Border.all(
                               color: AppColors.primary,
@@ -182,7 +182,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                         fontWeight: FontWeight.w900,
                         height: 1.05,
                         letterSpacing: -.6,
-                        color: dark ? Colors.white : const Color(0xFF00923F),
+                        color: dark ? Colors.white : const Color(0xFF0262FC),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -192,7 +192,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                         fontSize: 13,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 2.1,
-                        color: dark ? const Color(0xFF9ED9B7) : AppColors.primary,
+                        color: dark ? const Color(0xFFB9CFF5) : AppColors.primary,
                       ),
                     ),
                   ],

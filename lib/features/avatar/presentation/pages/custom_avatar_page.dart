@@ -68,7 +68,7 @@ class CustomAvatarPage extends ConsumerWidget {
 
     return Scaffold(
       body: DecoratedBox(
-        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0F160D), Color(0xFF152013), Color(0xFF101B18)] : const [Color(0xFFF4FBF7), Color(0xFFF7FAF8), Color(0xFFEAF7F0)])),
+        decoration: BoxDecoration(gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: Theme.of(context).brightness == Brightness.dark ? const [Color(0xFF0A1428), Color(0xFF10203A), Color(0xFF0C1A33)] : const [Color(0xFFF3F8FF), Color(0xFFF7FAFF), Color(0xFFE9F1FF)])),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(24, 8, 24, 18),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Verdes principales (Figma UI)
-  static const Color primary = Color(0xFF00923F);
-  static const Color primaryDark = Color(0xFF007A35);
-  static const Color primaryLight = Color(0xFFDDF3E6);
+  // Azules principales (logo Aevum Iter)
+  static const Color primary = Color(0xFF0262FC);
+  static const Color primaryDark = Color(0xFF024AB8);
+  static const Color primaryLight = Color(0xFFDCE8FF);
 
   // Fondos Pastel
-  static const Color background = Color(0xFFF3F7EC);
+  static const Color background = Color(0xFFF1F5FF);
   static const Color cardBackground = Color(0xFFFFFFFF);
 
   // Acentos de Tarjetas de Carreras y Tags

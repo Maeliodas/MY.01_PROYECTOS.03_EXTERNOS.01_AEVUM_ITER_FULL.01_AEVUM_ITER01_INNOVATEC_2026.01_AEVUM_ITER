@@ -196,7 +196,7 @@ class _AvatarHero extends StatelessWidget {
                   AppColors.primary.withValues(alpha: .16),
                 ]
               : const [
-                  Color(0xFFE5F7DC),
+                  Color(0xFFDFE9FF),
                   Color(0xFFDDF2F8),
                 ],
           begin: Alignment.centerLeft,

@@ -75,7 +75,7 @@ class _FigmaTabBar extends StatelessWidget {
           color: scheme.surface.withValues(alpha: .98),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
-            color: dark ? const Color(0xFF33402F) : const Color(0xFFE4ECD9),
+            color: dark ? const Color(0xFF2E3A52) : const Color(0xFFE2E9F3),
           ),
           boxShadow: [
             BoxShadow(
@@ -173,7 +173,7 @@ class _TabItem extends StatelessWidget {
                 Icon(
                   selected ? selectedIcon : icon,
                   size: selected ? 23 : 21,
-                  color: selected ? const Color(0xFF17340A) : secondary,
+                  color: selected ? const Color(0xFFFFFFFF) : secondary,
                 ),
                 const SizedBox(height: 3),
                 Text(
@@ -184,7 +184,7 @@ class _TabItem extends StatelessWidget {
                     fontSize: label == 'RESULTADOS' ? 8.2 : 9.3,
                     fontWeight: FontWeight.w900,
                     letterSpacing: .35,
-                    color: selected ? const Color(0xFF17340A) : secondary,
+                    color: selected ? const Color(0xFFFFFFFF) : secondary,
                   ),
                 ),
               ],

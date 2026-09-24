@@ -183,14 +183,14 @@ class _CareerHeroCard extends StatelessWidget {
         Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text('COMPATIBILIDAD MÁXIMA', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, letterSpacing: 1.05, color: AppColors.primary)),
           const SizedBox(height: 3),
-          Text(career.department, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF66746A))),
+          Text(career.department, style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: Color(0xFF5F6B7A))),
           const SizedBox(height: 5),
           Text(career.name, style: const TextStyle(fontSize: 25, height: 1.08, fontWeight: FontWeight.w900)),
         ])),
       ]),
       const SizedBox(height: 18),
       Row(children: [
-        const Expanded(child: Text('Afinidad vocacional', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Color(0xFF465048)))),
+        const Expanded(child: Text('Afinidad vocacional', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: Color(0xFF3D4756)))),
         Text('${affinity.round()}%', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: AppColors.primary)),
       ]),
       const SizedBox(height: 8),
@@ -273,7 +273,7 @@ class _CompetencyCard extends StatelessWidget {
   static const colors = {'R':Color(0xFFEF7C3A),'I':Color(0xFF45A8D8),'A':Color(0xFFE85A9C),'S':Color(0xFF2E8B3C),'E':Color(0xFFE0A11B),'C':Color(0xFFA866E5)};
   @override Widget build(BuildContext context) => Container(
     padding: const EdgeInsets.all(20),
-    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26), border: Border.all(color: const Color(0xFFD8DED3))),
+    decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26), border: Border.all(color: const Color(0xFFD6DFF0))),
     child: Column(children: dimensions.map((d) {
       final value = student[d] ?? 0; final color = colors[d] ?? AppColors.primary;
       return Padding(padding: const EdgeInsets.only(bottom: 18), child: Column(children: [
@@ -387,7 +387,7 @@ class _ReasonChip extends StatelessWidget {
         style: TextStyle(
           fontSize: 11.5,
           fontWeight: FontWeight.w800,
-          color: dark ? const Color(0xFF8BE5A8) : const Color(0xFF28753A),
+          color: dark ? const Color(0xFF9CC2FF) : const Color(0xFF0B4FBE),
         ),
       ),
     );
