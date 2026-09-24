@@ -19,6 +19,7 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
   final nameController = TextEditingController();
   final ageController = TextEditingController(text: '18');
   String gender = 'Otro';
+  bool _saving = false;
 
   @override
   void dispose() {
@@ -70,27 +71,38 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
                 PrimaryButton(
                   text: 'Continuar',
                   icon: Icons.arrow_forward_rounded,
+                  isLoading: _saving,
                   onPressed: () async {
                     final name = nameController.text.trim();
                     if (name.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Escribe tu nombre para continuar.')));
                       return;
                     }
-                    final profile = UserProfile(
-                      id: '1',
-                      name: name,
-                      age: int.tryParse(ageController.text.trim()) ?? 18,
-                      gender: gender,
-                      state: 'No especificado',
-                      municipality: 'No especificado',
-                      school: 'No especificada',
-                      speaksLanguages: false,
-                      languagesList: const [],
-                      avatarConfig: ref.read(avatarProvider),
-                      createdAt: DateTime.now(),
-                    );
-                    await ref.read(profileProvider.notifier).saveProfile(profile);
-                    if (context.mounted) context.go('/path-home');
+                    setState(() => _saving = true);
+                    try {
+                      final profile = UserProfile(
+                        id: '1',
+                        name: name,
+                        age: int.tryParse(ageController.text.trim()) ?? 18,
+                        gender: gender,
+                        state: 'No especificado',
+                        municipality: 'No especificado',
+                        school: 'No especificada',
+                        speaksLanguages: false,
+                        languagesList: const [],
+                        avatarConfig: ref.read(avatarProvider),
+                        createdAt: DateTime.now(),
+                      );
+                      await ref.read(profileProvider.notifier).saveProfile(profile);
+                      if (context.mounted) context.go('/path-home');
+                    } catch (e) {
+                      debugPrint('PersonalData: no se pudo guardar el perfil ($e)');
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo guardar: $e')));
+                      }
+                    } finally {
+                      if (mounted) setState(() => _saving = false);
+                    }
                   },
                 ),
                 const SizedBox(height: 16),

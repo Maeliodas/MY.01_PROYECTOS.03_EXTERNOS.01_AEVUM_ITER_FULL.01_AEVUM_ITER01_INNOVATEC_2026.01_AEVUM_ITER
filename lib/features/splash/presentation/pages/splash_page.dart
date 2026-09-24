@@ -19,6 +19,7 @@ class SplashPage extends ConsumerStatefulWidget {
 class _SplashPageState extends ConsumerState<SplashPage> {
   bool loadFailed = false;
   String status = 'Cargando…';
+  String? errorDetail;
 
   @override
   void initState() {
@@ -27,7 +28,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   Future<void> _go() async {
-    if (mounted) setState(() => loadFailed = false);
+    if (mounted) setState(() { loadFailed = false; errorDetail = null; });
     try {
       // El splash permanece visible al menos 3 segundos, mientras en paralelo
       // se lee el perfil local y se intenta sincronizar catálogos (acotado).
@@ -55,7 +56,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
       if (!synced) unawaited(_syncCatalogsInBackground());
     } catch (error) {
       debugPrint('Splash: no se pudo cargar ($error)');
-      if (mounted) setState(() => loadFailed = true);
+      if (mounted) setState(() { loadFailed = true; errorDetail = '$error'; });
     }
   }
 
@@ -213,6 +214,17 @@ class _SplashPageState extends ConsumerState<SplashPage> {
                           style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700),
                         ),
                       ),
+                      if (errorDetail != null) ...[
+                        const SizedBox(height: 8),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 40),
+                          child: Text(
+                            'Detalle: $errorDetail',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 12),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60),

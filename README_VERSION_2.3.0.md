@@ -1,10 +1,27 @@
 # Aevum Iter · Versión AIPROD2.3.0
 
-> **Versión completa actual: `AIPROD2.3.0_R5_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.3.0_R8_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **3**, actualizaciones medianas **0**,
-> revisión **5**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **7**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R5 (actual): limpieza visual
+## Revisión R8 (actual): diagnóstico visible del splash
+
+- `splash_page.dart`: la pantalla de error ahora muestra el `Detalle: <error>` real bajo el mensaje + `debugPrint`. El reintento limpia el detalle.
+- Red de sync auditada: `dashboard_api` con timeouts (8–12 s), `hasBackendConnection` a 3 s, sync acotado a 8 s — el fallo persistente tras cerrar no viene de red colgada sino de estado local (la BD se recupera borrando datos). Con el detalle visible se identifica en una corrida.
+- `pubspec.yaml` → `2.3.0+8`.
+
+## Revisión R7: fixes de físicos
+
+- **Crash `Unsupported operation: read-only`** (`profile_repository.dart`): `getProfile` mutaba `results[0]` sobre el `QueryResultSet` de solo lectura al parchar escuela pendiente. Ahora copia a variable local `first`. Era el verdadero culpable del botón muerto: el guardado sí funcionaba (perfil en BD), la lectura posterior reventaba.
+- **Botón de ficha por carrera**: verificado — el diálogo `Página oficial no disponible` ya no existe en el código; el detalle siempre abre `/career-site?career=<id>` con su HTML. Si aún se ve, es APK vieja: desinstalar e instalar de nuevo.
+- `pubspec.yaml` → `2.3.0+7`; `flutter analyze` limpio.
+
+## Revisión R6: fix botón Continuar
+
+- `personal_data_page.dart`: el `onPressed` iba sin `try/catch` — cualquier excepción en `saveProfile` mataba el botón en silencio. Ahora muestra el error real en `SnackBar` (+ `debugPrint` para logcat) y tiene estado de carga anti doble-tap.
+- `pubspec.yaml` → `2.3.0+6`.
+
+## Revisión R5: limpieza visual
 
 - Fuera dependencia `url_launcher` (cero usos tras las fichas locales) + `flutter pub get`.
 - Fuera ruta `/privacy` (nadie navegaba a ella; el aviso vive como diálogo) y clase `PrivacyPage`.
