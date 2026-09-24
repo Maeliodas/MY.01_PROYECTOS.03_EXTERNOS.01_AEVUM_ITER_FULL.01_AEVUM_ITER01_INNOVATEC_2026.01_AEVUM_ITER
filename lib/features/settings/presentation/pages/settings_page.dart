@@ -1,0 +1,154 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/constants/app_constants.dart';
+
+import '../../../../app/theme/app_colors.dart';
+import '../../../catalog/presentation/providers/catalog_providers.dart';
+import '../providers/settings_provider.dart';
+import 'privacy_page.dart';
+
+class SettingsPage extends ConsumerWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+    final reduce = ref.watch(reduceAnimationsProvider);
+    return Scaffold(
+      appBar: AppBar(title: const Text('Configuración')),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(22, 8, 22, 30),
+        children: [
+          const Text('PREFERENCIAS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
+            child: Column(
+              children: [
+                _Switch(icon: Icons.dark_mode_outlined, iconColor: const Color(0xFF7432CE), title: 'Modo Oscuro', subtitle: 'Reduce la fatiga visual', value: themeMode == ThemeMode.dark, onChanged: (v) => ref.read(themeModeProvider.notifier).toggleTheme(v)),
+                const Divider(height: 1, indent: 70),
+                _Switch(icon: Icons.animation_rounded, iconColor: const Color(0xFF18A9D3), title: 'Disminuir Animaciones', subtitle: 'Reduce los efectos de movimiento', value: reduce, onChanged: (v) => ref.read(reduceAnimationsProvider.notifier).toggleReduce(v)),
+              ],
+            ),
+          ),
+          const SizedBox(height: 26),
+          const Text('DATOS Y CATÁLOGOS', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              leading: Container(width: 42, height: 42, decoration: BoxDecoration(color: const Color(0xFF00923F).withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: const Icon(Icons.sync_rounded, color: Color(0xFF00923F))),
+              title: const Text('Actualizar catálogos', style: TextStyle(fontWeight: FontWeight.w900)),
+              subtitle: const Text('Descarga cambios aprobados del panel y los guarda en SQLite.'),
+              trailing: const Icon(Icons.chevron_right_rounded),
+              onTap: () async {
+                final messenger = ScaffoldMessenger.of(context);
+                // Pantalla de espera: la descarga por ngrok puede tardar varios
+                // segundos y sin indicador parece que la app se trabó.
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (dialogContext) => AlertDialog(
+                    content: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(strokeWidth: 2.8),
+                        ),
+                        const SizedBox(width: 16),
+                        Flexible(
+                          child: Text(
+                            'Actualizando catálogos…',
+                            style: TextStyle(
+                              color: Theme.of(dialogContext).colorScheme.onSurface,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+                bool ok = false;
+                try {
+                  ok = await ref
+                      .read(catalogSyncServiceProvider)
+                      .sync()
+                      .timeout(const Duration(seconds: 60));
+                } catch (_) {
+                  ok = false;
+                } finally {
+                  if (context.mounted) Navigator.of(context, rootNavigator: true).pop();
+                }
+                if (ok) {
+                  ref.invalidate(statesProvider);
+                  ref.invalidate(schoolsProvider);
+                  ref.invalidate(allLanguagesProvider);
+                  ref.invalidate(careersCatalogProvider);
+                  ref.invalidate(departmentQuestionsProvider);
+                }
+                messenger.showSnackBar(SnackBar(content: Text(ok ? 'Catálogos actualizados.' : 'No fue posible actualizar. Se conservaron los datos locales.')));
+              },
+            ),
+          ),
+          const SizedBox(height: 26),
+          const Text('PRIVACIDAD Y SOPORTE', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w900, color: Color(0xFF00923F), letterSpacing: 1.1)),
+          const SizedBox(height: 10),
+          Container(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(26)),
+            child: Column(
+              children: [
+                _Info(icon: Icons.lock_outline_rounded, iconColor: const Color(0xFF18A9D3), title: 'Aviso de privacidad', subtitle: 'Consulta qué datos utiliza ${AppConstants.appName} y para qué fines.', onTap: () => showPrivacyNoticeDialog(context)),
+                const Divider(height: 1, indent: 70),
+                const _Info(icon: Icons.help_outline_rounded, iconColor: Color(0xFF7432CE), title: 'Ayuda', subtitle: '${AppConstants.appName} · Prototipo funcional'),
+              ],
+            ),
+          ),
+          const SizedBox(height: 28),
+          Center(child: Text(AppConstants.appName, style: TextStyle(fontSize: 10, fontWeight: FontWeight.w800, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .55), letterSpacing: 1.4))),
+        ],
+      ),
+    );
+  }
+}
+
+class _Switch extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+  const _Switch({required this.icon, required this.iconColor, required this.title, required this.subtitle, required this.value, required this.onChanged});
+  @override
+  Widget build(BuildContext context) => SwitchListTile.adaptive(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+        secondary: Container(width: 42, height: 42, decoration: BoxDecoration(color: iconColor.withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: iconColor)),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
+        subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),
+        activeThumbColor: AppColors.primary,
+        value: value,
+        onChanged: onChanged,
+      );
+}
+
+class _Info extends StatelessWidget {
+  final IconData icon;
+  final Color iconColor;
+  final String title;
+  final String subtitle;
+  final VoidCallback? onTap;
+  const _Info({required this.icon, required this.iconColor, required this.title, required this.subtitle, this.onTap});
+  @override
+  Widget build(BuildContext context) => ListTile(
+        onTap: onTap,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        leading: Container(width: 42, height: 42, decoration: BoxDecoration(color: iconColor.withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: iconColor)),
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
+        subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),
+        trailing: const Icon(Icons.chevron_right_rounded),
+      );
+}
