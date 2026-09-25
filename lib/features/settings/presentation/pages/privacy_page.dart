@@ -24,7 +24,7 @@ Widget _privacyContent(BuildContext context) {
       ),
       const _Section(
         '2. Datos personales que se recaban',
-        'Nombre, edad, género, estado, municipio, escuela de procedencia, lenguas o idiomas seleccionados, fotografía o imagen de avatar, respuestas del test vocacional, resultado RIASEC con código Holland, carrera recomendada y respuestas complementarias a la pregunta abierta.',
+        'Nombre, edad, género, fotografía o imagen de avatar, respuestas del test vocacional, resultado RIASEC con código Holland, carrera recomendada y respuestas complementarias.',
       ),
       const _Section(
         '3. Datos sensibles',
@@ -72,7 +72,7 @@ Widget _privacyContent(BuildContext context) {
       ),
       const SizedBox(height: 4),
       Text(
-        'Última actualización de este texto: versión AIPROD2.4.0_R1_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
+        'Última actualización de este texto: versión AIPROD2.4.0_R2_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
         style: TextStyle(fontSize: 12, color: muted),
       ),
     ],

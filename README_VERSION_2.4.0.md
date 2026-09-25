@@ -1,10 +1,16 @@
 # Aevum Iter · Versión AIPROD2.4.0
 
-> **Versión completa actual: `AIPROD2.4.0_R1_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.4.0_R2_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **4**, actualizaciones medianas **0**,
-> revisión **1**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **2**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R1 (actual): rebalanceo del instrumento RIASEC
+## Revisión R2 (actual): fuera lenguas, escuelas y procedencia
+
+- **App**: eliminada la sección `Procedencia académica` de editar-perfil (dropdowns estado/municipio/escuela) y el stat `ESCUELA` del perfil; fuera providers `states/municipalities/schools/languages` y sus invalidaciones; aviso de privacidad sin esos datos. Capa de datos intacta a propósito (entidad, repo, sync, BD).
+- **Panel**: fuera filtros estado/municipio/escuela, gráficas de procedencia/escuelas/lenguas/idiomas, columnas de registros, tabs y 4 parciales de esos catálogos, agregados del servidor, KPI de escuelas (3 tarjetas) y secciones 6–7 + columnas del PDF. Ingesta y esquema intactos.
+- `pubspec.yaml` → `2.4.0+2`; `flutter analyze` limpio; panel con sintaxis y render EJS verificados.
+
+## Revisión R1: rebalanceo del instrumento RIASEC
 
 Problema: Bioquímica ganaba casi siempre, incluso con el perfil ideal de otras carreras. Causas halladas por simulación del algoritmo exacto: vectores I casi idénticos en ISC/II/IBQ, códigos Holland duplicados (IRC×2, RIC×3, ESC×2) y la media ponderada premiando vectores concentrados (IBQ cosechaba C=6.4).
 
