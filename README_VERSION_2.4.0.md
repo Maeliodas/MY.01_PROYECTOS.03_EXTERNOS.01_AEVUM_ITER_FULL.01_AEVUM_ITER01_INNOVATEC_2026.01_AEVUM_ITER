@@ -1,10 +1,15 @@
 # Aevum Iter · Versión AIPROD2.4.0
 
-> **Versión completa actual: `AIPROD2.4.0_R3_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.4.0_R4_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **4**, actualizaciones medianas **0**,
-> revisión **3**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **4**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R3 (actual): fuera pregunta abierta del panel y provider
+## Revisión R4 (actual): icono en todas las plataformas
+
+- Launcher Android (5 densidades, fondo navy), iconos web 192/512 + maskable + favicon, ICO de Windows y `manifest.json` con nombre, colores y descripción Aevum Iter.
+- `pubspec.yaml` → `2.4.0+4`.
+
+## Revisión R3: fuera pregunta abierta del panel y provider
 
 - **Panel**: eliminado endpoint `PUT department-questions`, tarjeta de pregunta por departamento, query de abiertas y columna `Respuestas` (EJS+JS); fuera `departmentQuestions` del payload admin.
 - **App**: eliminado provider `departmentQuestionsProvider` y sus invalidaciones (splash + vivo). Capa de datos intacta (tablas, sync, ingesta).

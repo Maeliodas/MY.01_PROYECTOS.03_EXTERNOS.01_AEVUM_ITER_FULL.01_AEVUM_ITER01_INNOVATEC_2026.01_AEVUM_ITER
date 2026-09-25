@@ -1,11 +1,11 @@
 {
-    "name": "aevum_iter",
-    "short_name": "aevum_iter",
+    "name": "Aevum Iter",
+    "short_name": "Aevum Iter",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F1F5FF",
+    "theme_color": "#0262FC",
+    "description": "Aevum Iter — Descubre tu camino. Orientación vocacional RIASEC.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
