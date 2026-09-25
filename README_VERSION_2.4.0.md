@@ -1,8 +1,13 @@
 # Aevum Iter · Versión AIPROD2.4.0
 
-> **Versión completa actual: `AIPROD2.4.0_R4_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.4.0_R5_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **4**, actualizaciones medianas **0**,
-> revisión **4**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **5**, rama **IN** (Innovatec). Edición de presentación comercial.
+
+## Revisión R5 (actual): launcher con fondo transparente
+
+- `mipmap-*/ic_launcher.png`: antes fondo navy completo (el launcher lo encogía sobre círculo blanco y se veía el cuadro azul). Ahora círculo blanco + brújula con exterior transparente, compone limpio en cualquier launcher y tema.
+- `pubspec.yaml` → `2.4.0+5`.
 
 ## Revisión R4 (actual): icono en todas las plataformas
 
