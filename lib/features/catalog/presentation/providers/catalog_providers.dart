@@ -15,7 +15,3 @@ final catalogSyncServiceProvider = Provider<CatalogSyncService>(
 final careersCatalogProvider = FutureProvider<List<CareerCatalog>>((ref) {
   return ref.watch(catalogRepositoryProvider).getCareers();
 });
-
-final departmentQuestionsProvider = FutureProvider<List<DepartmentQuestion>>((ref) {
-  return ref.watch(catalogRepositoryProvider).getDepartmentQuestions();
-});
