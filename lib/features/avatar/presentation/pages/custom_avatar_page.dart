@@ -15,7 +15,8 @@ import '../providers/avatar_provider.dart';
 
 class CustomAvatarPage extends ConsumerWidget {
   final bool returnToProfile;
-  const CustomAvatarPage({super.key, this.returnToProfile = false});
+  final bool returnToPersonalData;
+  const CustomAvatarPage({super.key, this.returnToProfile = false, this.returnToPersonalData = false});
 
   Future<void> _pickGallery(WidgetRef ref) async {
     final picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 88);
@@ -28,6 +29,17 @@ class CustomAvatarPage extends ConsumerWidget {
   }
 
   Future<void> _finish(BuildContext context, WidgetRef ref) async {
+    if (returnToPersonalData) {
+      // Vuelve a la pantalla de datos existente (conserva lo ya escrito).
+      // Si se llegó vía elegir-avatar, un pop cae ahí y el Continuar de esa
+      // pantalla hace el segundo pop.
+      if (context.canPop()) {
+        context.pop();
+        return;
+      }
+      context.push('/personal-data');
+      return;
+    }
     if (!returnToProfile) {
       context.push('/personal-data');
       return;

@@ -1,8 +1,19 @@
 # Aevum Iter · Versión AIPROD2.3.0
 
-> **Versión completa actual: `AIPROD2.3.0_R8_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.3.0_R10_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **3**, actualizaciones medianas **0**,
-> revisión **7**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **10**, rama **IN** (Innovatec). Edición de presentación comercial.
+
+## Revisión R10 (actual): retiro del detalle técnico del splash
+
+- `splash_page.dart`: fuera el bloque `Detalle: <error>` y el estado `errorDetail`. El error ya no reaparece y no debe exponerse texto técnico al usuario; queda solo el `debugPrint` interno para logcat.
+- `pubspec.yaml` → `2.3.0+10`; `flutter analyze` limpio.
+
+## Revisión R9: assert ListTile + retorno de avatar
+
+- **Excepción `ListTile background color or ink splashes may be invisible`**: los `ListTile`/`SwitchListTile` vivían dentro de `Container` con color (4 en ajustes, 3 en perfil) y el ripple quedaba oculto. Envueltos en `Material` transparente — mismo look, sin assert. Era lo que se veía al guardar test y entrar a perfil/ajustes.
+- **Pérdida de datos al cambiar avatar**: `CAMBIAR AVATAR` ahora va a `/choose-avatar?return=personal-data` y el Continuar hace `pop` a la pantalla existente (conserva nombre/edad/género) en vez de crear otra vacía. Rutas y página custom propagan el retorno.
+- `pubspec.yaml` → `2.3.0+9`; `flutter analyze` limpio.
 
 ## Revisión R8 (actual): diagnóstico visible del splash
 

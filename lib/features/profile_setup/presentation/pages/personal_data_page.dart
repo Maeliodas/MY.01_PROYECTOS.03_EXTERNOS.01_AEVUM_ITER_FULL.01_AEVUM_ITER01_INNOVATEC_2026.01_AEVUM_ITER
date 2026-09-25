@@ -106,7 +106,7 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
                   },
                 ),
                 const SizedBox(height: 16),
-                TextButton.icon(onPressed: () => context.push('/choose-avatar'), icon: const Icon(Icons.edit_outlined), label: const Text('CAMBIAR AVATAR', style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 1))),
+                TextButton.icon(onPressed: () => context.push('/choose-avatar?return=personal-data'), icon: const Icon(Icons.edit_outlined), label: const Text('CAMBIAR AVATAR', style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 1))),
               ],
             ),
           ),

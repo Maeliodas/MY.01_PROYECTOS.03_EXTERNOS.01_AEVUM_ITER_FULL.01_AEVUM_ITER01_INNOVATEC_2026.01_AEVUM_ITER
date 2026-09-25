@@ -14,9 +14,20 @@ import '../../../../core/widgets/app_back_button.dart';
 
 class ChooseAvatarPage extends ConsumerWidget {
   final bool returnToProfile;
-  const ChooseAvatarPage({super.key, this.returnToProfile = false});
+  final bool returnToPersonalData;
+  const ChooseAvatarPage({super.key, this.returnToProfile = false, this.returnToPersonalData = false});
 
   Future<void> _finish(BuildContext context, WidgetRef ref) async {
+    if (returnToPersonalData) {
+      // El avatar ya quedó en avatarProvider: volver a la pantalla de datos
+      // existente en vez de crear otra (conserva lo ya escrito).
+      if (context.canPop()) {
+        context.pop();
+        return;
+      }
+      context.push('/personal-data');
+      return;
+    }
     if (!returnToProfile) {
       context.push('/personal-data');
       return;
@@ -48,8 +59,8 @@ class ChooseAvatarPage extends ConsumerWidget {
   }
 
   void _goCustom(BuildContext context) {
-    final loc = returnToProfile ? '/custom-avatar?return=profile' : '/custom-avatar';
-    context.push(loc);
+    final ret = returnToProfile ? 'profile' : (returnToPersonalData ? 'personal-data' : '');
+    context.push(ret.isEmpty ? '/custom-avatar' : '/custom-avatar?return=$ret');
   }
 
   @override

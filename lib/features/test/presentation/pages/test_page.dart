@@ -77,7 +77,9 @@ class _TestPageState extends ConsumerState<TestPage> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
-        if (await _confirmExit() && context.mounted) context.pop();
+        // Se llegó con go() (pila limpia): pop() no tendría a dónde volver.
+        // Guardar y salir va al mapa interactivo (tab 0 del home).
+        if (await _confirmExit() && context.mounted) context.go('/path-home');
       },
       child: Scaffold(
         body: DecoratedBox(
@@ -95,7 +97,7 @@ class _TestPageState extends ConsumerState<TestPage> {
               padding: const EdgeInsets.fromLTRB(22, 8, 22, 24),
               child: Column(
                 children: [
-                  Row(children: [AppBackButton(onPressed: () async { if (await _confirmExit() && context.mounted) context.pop(); }), const Text(AppConstants.appName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF0262FC)))]),
+                  Row(children: [AppBackButton(onPressed: () async { if (await _confirmExit() && context.mounted) context.go('/path-home'); }), const Text(AppConstants.appName, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w900, color: Color(0xFF0262FC)))]),
                   const SizedBox(height: 20),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [const Text('PROGRESO VOCACIONAL', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: .8)), Text('ETAPA ${state.currentIndex + 1} DE ${state.questions.length}', style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w900, color: Color(0xFF0262FC), letterSpacing: .6))]),
                   const SizedBox(height: 9),
@@ -121,7 +123,7 @@ class _TestPageState extends ConsumerState<TestPage> {
                               final done = await ref.read(testProvider.notifier).nextQuestion();
                               if (!context.mounted) return;
                               if (done) {
-                                context.go('/open-question');
+                                context.go('/thank-you');
                               } else {
                                 final nextState = ref.read(testProvider);
                                 final nextId = nextState.questions[nextState.currentIndex].id;

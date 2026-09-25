@@ -7,7 +7,6 @@ import '../../features/avatar/presentation/pages/custom_avatar_page.dart';
 import '../../features/path/presentation/pages/path_home_page.dart';
 import '../../features/test/presentation/pages/test_intro_page.dart';
 import '../../features/test/presentation/pages/test_page.dart';
-import '../../features/test/presentation/pages/open_question_page.dart';
 import '../../features/test/presentation/pages/thank_you_page.dart';
 import '../../features/result/presentation/pages/result_unlocked_page.dart';
 import '../../features/result/presentation/pages/result_analysis_page.dart';
@@ -25,8 +24,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(path: '/', builder: (_, __) => const SplashPage()),
     GoRoute(path: '/onboarding', builder: (_, __) => const OnboardingPage()),
     GoRoute(path: '/personal-data', builder: (_, __) => const PersonalDataPage()),
-    GoRoute(path: '/choose-avatar', builder: (_, state) => ChooseAvatarPage(returnToProfile: state.uri.queryParameters['return'] == 'profile')),
-    GoRoute(path: '/custom-avatar', builder: (_, state) => CustomAvatarPage(returnToProfile: state.uri.queryParameters['return'] == 'profile')),
+    GoRoute(path: '/choose-avatar', builder: (_, state) => ChooseAvatarPage(returnToProfile: state.uri.queryParameters['return'] == 'profile', returnToPersonalData: state.uri.queryParameters['return'] == 'personal-data')),
+    GoRoute(path: '/custom-avatar', builder: (_, state) => CustomAvatarPage(returnToProfile: state.uri.queryParameters['return'] == 'profile', returnToPersonalData: state.uri.queryParameters['return'] == 'personal-data')),
     GoRoute(
       path: '/path-home',
       builder: (_, state) => PathHomePage(
@@ -35,7 +34,6 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(path: '/test-intro', builder: (_, __) => const TestIntroPage()),
     GoRoute(path: '/test', builder: (_, __) => const TestPage()),
-    GoRoute(path: '/open-question', builder: (_, __) => const OpenQuestionPage()),
     GoRoute(path: '/thank-you', builder: (_, __) => const ThankYouPage()),
     GoRoute(path: '/result-analysis', builder: (_, __) => const ResultAnalysisPage()),
     GoRoute(path: '/result-unlocked', builder: (_, __) => const ResultUnlockedPage()),
