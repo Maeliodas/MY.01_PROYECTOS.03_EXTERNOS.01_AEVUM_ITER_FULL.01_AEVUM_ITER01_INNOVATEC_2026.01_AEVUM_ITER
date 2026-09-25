@@ -1,10 +1,16 @@
 # Aevum Iter · Versión AIPROD2.3.1
 
-> **Versión completa actual: `AIPROD2.3.1_R2_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
+> **Versión completa actual: `AIPROD2.3.1_R3_IN`** — siglas **AI** (Aevum Iter, pegadas), canal **PROD**,
 > versión **2**, actualizaciones mayores **3**, actualizaciones medianas **1**,
-> revisión **2**, rama **IN** (Innovatec). Edición de presentación comercial.
+> revisión **3**, rama **IN** (Innovatec). Edición de presentación comercial.
 
-## Revisión R2 (actual): guardar y salir al mapa
+## Revisión R3 (actual): permiso de cámara
+
+- `AndroidManifest.xml`: faltaba `android.permission.CAMERA` — `Tomar foto` moría en físicos. Agregado + etiqueta `Aevum Iter`.
+- `custom_avatar_page.dart`: `Galería`/`Cámara` con `try/catch`, error visible en `SnackBar` y `debugPrint`.
+- `pubspec.yaml` → `2.3.1+3`; `flutter analyze` limpio.
+
+## Revisión R2: guardar y salir al mapa
 
 - `test_page.dart`: `Guardar y Salir` (botón y gesto atrás) hacía `pop`, pero como se llega con `go('/test')` la pila está limpia y no había a dónde volver — se quedaba en el test. Ahora va a `/path-home` (mapa interactivo, tab 0). El progreso ya se autoguardaba por respuesta.
 - `pubspec.yaml` → `2.3.1+2`; `flutter analyze` limpio.

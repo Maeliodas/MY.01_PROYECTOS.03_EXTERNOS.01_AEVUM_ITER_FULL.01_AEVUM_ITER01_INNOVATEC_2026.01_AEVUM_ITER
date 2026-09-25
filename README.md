@@ -1,12 +1,12 @@
 <div align="center">
   <img src="assets/branding/app_logo_light.png" alt="Aevum Iter" width="160"/>
 
-  # Aevum Iter AIPROD2.3.1_R2_IN
+  # Aevum Iter AIPROD2.3.1_R3_IN
 
   **Descubre tu camino** — Orientación vocacional con modelo RIASEC / Holland, operación offline-first y panel institucional en tiempo real.
   Edición de presentación comercial.
 
-  [![release](https://img.shields.io/badge/release-AIPROD2.3.1__R2__IN-0262FC?style=for-the-badge)](README_VERSION_2.3.1.md)
+  [![release](https://img.shields.io/badge/release-AIPROD2.3.1__R3__IN-0262FC?style=for-the-badge)](README_VERSION_2.3.1.md)
   [![flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](.)
   [![dart](https://img.shields.io/badge/Dart-%5E3.2-0175C2?style=for-the-badge&logo=dart&logoColor=white)](.)
   [![node](https://img.shields.io/badge/Node.js-Express_4-339933?style=for-the-badge&logo=node.js&logoColor=white)](.)
@@ -133,7 +133,7 @@ Panel en `http://localhost:8080` · Salud en `GET /health`.
 
 ## 🔢 Versionado
 
-Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.3.1_R2_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.3.1_R2_IN`):
+Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.3.1_R3_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.3.1_R3_IN`):
 
 | Parte | Significado | Cuándo cambia |
 |---|---|---|
@@ -149,11 +149,11 @@ Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, 
 
 | Versión | Cambios (general) | Detalle |
 |---|---|---|
-| [AIPROD2.3.1_R2_IN](README_VERSION_2.3.1.md) | Guardar y salir vuelve al mapa interactivo | [Ver detalle](README_VERSION_2.3.1.md) |
+| [AIPROD2.3.1_R3_IN](README_VERSION_2.3.1.md) | Permiso de cámara + errores visibles en avatar | [Ver detalle](README_VERSION_2.3.1.md) |
 | [AIPROD2.3.0_R10_IN](README_VERSION_2.3.0.md) | Retiro del detalle técnico del splash | [Ver detalle](README_VERSION_2.3.0.md) |
 
 ---
 
 <div align="center">
-  <sub>Aevum Iter AIPROD2.3.1_R2_IN · Rama Innovatec · Uso institucional</sub>
+  <sub>Aevum Iter AIPROD2.3.1_R3_IN · Rama Innovatec · Uso institucional</sub>
 </div>

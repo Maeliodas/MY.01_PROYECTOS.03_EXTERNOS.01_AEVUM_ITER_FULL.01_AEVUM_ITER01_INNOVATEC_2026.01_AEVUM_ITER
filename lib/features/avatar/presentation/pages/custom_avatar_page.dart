@@ -18,14 +18,28 @@ class CustomAvatarPage extends ConsumerWidget {
   final bool returnToPersonalData;
   const CustomAvatarPage({super.key, this.returnToProfile = false, this.returnToPersonalData = false});
 
-  Future<void> _pickGallery(WidgetRef ref) async {
-    final picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 88);
-    if (picked != null) ref.read(avatarProvider.notifier).selectCustomPhoto(picked.path);
+  Future<void> _pickGallery(BuildContext context, WidgetRef ref) async {
+    try {
+      final picked = await ImagePicker().pickImage(source: ImageSource.gallery, imageQuality: 88);
+      if (picked != null) ref.read(avatarProvider.notifier).selectCustomPhoto(picked.path);
+    } catch (e) {
+      debugPrint('Avatar galería: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo abrir la galería: $e')));
+      }
+    }
   }
 
-  Future<void> _pickCamera(WidgetRef ref) async {
-    final picked = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 88);
-    if (picked != null) ref.read(avatarProvider.notifier).selectCustomPhoto(picked.path);
+  Future<void> _pickCamera(BuildContext context, WidgetRef ref) async {
+    try {
+      final picked = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 88);
+      if (picked != null) ref.read(avatarProvider.notifier).selectCustomPhoto(picked.path);
+    } catch (e) {
+      debugPrint('Avatar cámara: $e');
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo usar la cámara: $e')));
+      }
+    }
   }
 
   Future<void> _finish(BuildContext context, WidgetRef ref) async {
@@ -94,9 +108,9 @@ class CustomAvatarPage extends ConsumerWidget {
               Container(width: 210, height: 210, padding: const EdgeInsets.all(6), decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).colorScheme.surface, border: Border.all(color: AppColors.primary, width: 4)), child: preview),
               const SizedBox(height: 28),
               Row(children: [
-                Expanded(child: SecondaryButton(text: 'Galería', onPressed: () => _pickGallery(ref))),
+                Expanded(child: SecondaryButton(text: 'Galería', onPressed: () => _pickGallery(context, ref))),
                 const SizedBox(width: 10),
-                Expanded(child: SecondaryButton(text: 'Tomar foto', onPressed: () => _pickCamera(ref))),
+                Expanded(child: SecondaryButton(text: 'Tomar foto', onPressed: () => _pickCamera(context, ref))),
               ]),
               const Spacer(),
               PrimaryButton(text: returnToProfile ? 'Guardar avatar' : 'Continuar', icon: Icons.arrow_forward_rounded, onPressed: () => _finish(context, ref)),
