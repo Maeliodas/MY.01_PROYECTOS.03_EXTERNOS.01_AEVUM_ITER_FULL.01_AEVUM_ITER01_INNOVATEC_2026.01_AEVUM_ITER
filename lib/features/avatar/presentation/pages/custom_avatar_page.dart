@@ -44,13 +44,15 @@ class CustomAvatarPage extends ConsumerWidget {
 
   Future<void> _finish(BuildContext context, WidgetRef ref) async {
     if (returnToPersonalData) {
-      // Vuelve a la pantalla de datos existente (conserva lo ya escrito).
-      // Si se llegó vía elegir-avatar, un pop cae ahí y el Continuar de esa
-      // pantalla hace el segundo pop.
-      if (context.canPop()) {
-        context.pop();
-        return;
+      // La pila es datos -> elegir -> custom: dos pops para caer directo
+      // en los datos existentes (conserva lo ya escrito).
+      final nav = Navigator.of(context);
+      var popped = 0;
+      while (nav.canPop() && popped < 2) {
+        nav.pop();
+        popped++;
       }
+      if (popped > 0) return;
       context.push('/personal-data');
       return;
     }
