@@ -1,12 +1,12 @@
 <div align="center">
   <img src="assets/branding/app_logo_light.png" alt="Aevum Iter" width="160"/>
 
-  # Aevum Iter AIPROD2.4.0_R5_IN
+  # Aevum Iter AIPROD2.5.0_R1_IN
 
   **Descubre tu camino** — Orientación vocacional con modelo RIASEC / Holland, operación offline-first y panel institucional en tiempo real.
   Edición de presentación comercial.
 
-  [![release](https://img.shields.io/badge/release-AIPROD2.4.0__R5__IN-0262FC?style=for-the-badge)](README_VERSION_2.4.0.md)
+  [![release](https://img.shields.io/badge/release-AIPROD2.5.0__R1__IN-0262FC?style=for-the-badge)](README_VERSION_2.5.0.md)
   [![flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](.)
   [![dart](https://img.shields.io/badge/Dart-%5E3.2-0175C2?style=for-the-badge&logo=dart&logoColor=white)](.)
   [![node](https://img.shields.io/badge/Node.js-Express_4-339933?style=for-the-badge&logo=node.js&logoColor=white)](.)
@@ -104,6 +104,13 @@ flutter run --dart-define=AEVUM_ITER_API_URL=http://IP_DE_TU_PC:8080/api
 
 > En producción usa exclusivamente la URL HTTPS institucional y define `AEVUM_ITER_API_KEY` con el mismo valor de `API_INGEST_KEY` del panel.
 
+**🌐 Versión web demo (para exposiciones):**
+```bash
+flutter run -d chrome --dart-define=AEVUM_ITER_API_URL=http://IP_DE_TU_PC:8080/api
+# o servir el build: flutter build web + hosting estático de build/web
+```
+En web la BD vive en IndexedDB (sqlite3.wasm), el seed entra por JSON y las fotos usan blob-URLs. Si la consola marca errores de `SharedArrayBuffer`, sirve con cabeceras COOP/COEP.
+
 </details>
 
 <details>
@@ -133,7 +140,7 @@ Panel en `http://localhost:8080` · Salud en `GET /health`.
 
 ## 🔢 Versionado
 
-Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.4.0_R5_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.4.0_R5_IN`):
+Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.5.0_R1_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.5.0_R1_IN`):
 
 | Parte | Significado | Cuándo cambia |
 |---|---|---|
@@ -149,6 +156,7 @@ Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, 
 
 | Versión | Cambios (general) | Detalle |
 |---|---|---|
+| [AIPROD2.5.0_R1_IN](README_VERSION_2.5.0.md) | Soporte web demo (SQLite wasm, seed JSON, visor iframe) | [Ver detalle](README_VERSION_2.5.0.md) |
 | [AIPROD2.4.0_R5_IN](README_VERSION_2.4.0.md) | Launcher con fondo transparente | [Ver detalle](README_VERSION_2.4.0.md) |
 | [AIPROD2.3.1_R4_IN](README_VERSION_2.3.1.md) | Retorno directo a datos desde custom | [Ver detalle](README_VERSION_2.3.1.md) |
 | [AIPROD2.3.0_R10_IN](README_VERSION_2.3.0.md) | Retiro del detalle técnico del splash | [Ver detalle](README_VERSION_2.3.0.md) |
@@ -156,5 +164,5 @@ Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, 
 ---
 
 <div align="center">
-  <sub>Aevum Iter AIPROD2.4.0_R5_IN · Rama Innovatec · Uso institucional</sub>
+  <sub>Aevum Iter AIPROD2.5.0_R1_IN · Rama Innovatec · Uso institucional</sub>
 </div>

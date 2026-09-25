@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/theme/app_colors.dart';
 import '../../../../core/widgets/app_back_button.dart';
+import '../../../../core/widgets/local_image.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../core/widgets/secondary_button.dart';
 import '../../../profile/domain/entities/user_profile.dart';
@@ -91,7 +91,7 @@ class CustomAvatarPage extends ConsumerWidget {
     final selected = ref.watch(avatarProvider);
     final isCustom = selected.baseAvatarId == 'custom_photo';
     final Widget preview = isCustom
-        ? ClipOval(child: Image.file(File(selected.avatarPath), fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90)))
+        ? ClipOval(child: localImage(selected.avatarPath))
         : ClipOval(child: Image.asset(selected.avatarPath, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90)));
 
     return Scaffold(

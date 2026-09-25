@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../../core/widgets/app_back_button.dart';
+import 'career_site_body.dart';
 
 /// Ficha local de la carrera (HTML de demostración en assets/careers/).
 class CareerSitePage extends StatefulWidget {
@@ -17,23 +18,25 @@ class _CareerSitePageState extends State<CareerSitePage> {
     'isc', 'ii', 'idap', 'iem', 'ie', 'ic', 'ibq', 'ige', 'la', 'cp', 'arq',
   };
 
-  late final WebViewController _controller;
-  var _progress = 0;
+  late final String _asset;
 
   @override
   void initState() {
     super.initState();
     final id = (widget.careerId ?? '').trim().toLowerCase();
-    final asset = 'assets/careers/${_known.contains(id) ? id : 'isc'}.html';
-    _controller = WebViewController()
+    _asset = 'assets/careers/${_known.contains(id) ? id : 'isc'}.html';
+  }
+
+  WebViewController _createController() {
+    final controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.disabled)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onProgress: (p) => mounted ? setState(() => _progress = p) : null,
           onNavigationRequest: (req) => NavigationDecision.prevent,
         ),
       )
-      ..loadFlutterAsset(asset);
+      ..loadFlutterAsset(_asset);
+    return controller;
   }
 
   @override
@@ -43,12 +46,9 @@ class _CareerSitePageState extends State<CareerSitePage> {
         leading: const AppBackButton(),
         title: const Text('Ficha de la carrera'),
       ),
-      body: Stack(
-        children: [
-          WebViewWidget(controller: _controller),
-          if (_progress < 100)
-            const LinearProgressIndicator(minHeight: 3),
-        ],
+      body: careerSiteBody(
+        assetPath: _asset,
+        createController: _createController,
       ),
     );
   }

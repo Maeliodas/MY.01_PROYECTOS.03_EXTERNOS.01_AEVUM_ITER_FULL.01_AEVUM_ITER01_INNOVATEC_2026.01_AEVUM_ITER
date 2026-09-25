@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import '../../../avatar/presentation/providers/avatar_provider.dart';
 import '../../../profile/domain/entities/user_profile.dart';
 import '../../../profile/presentation/providers/profile_provider.dart';
 import '../../../../core/widgets/app_back_button.dart';
+import '../../../../core/widgets/local_image.dart';
 
 class PersonalDataPage extends ConsumerStatefulWidget {
   const PersonalDataPage({super.key});
@@ -31,9 +31,9 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
     final avatar = ref.watch(avatarProvider);
-    final local = avatar.avatarPath.startsWith('/') || avatar.avatarPath.contains('emulated');
+    final local = isLocalPhoto(avatar.avatarPath);
     final image = local
-        ? Image.file(File(avatar.avatarPath), fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90))
+        ? localImage(avatar.avatarPath)
         : Image.asset(avatar.avatarPath, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90));
 
     return Scaffold(

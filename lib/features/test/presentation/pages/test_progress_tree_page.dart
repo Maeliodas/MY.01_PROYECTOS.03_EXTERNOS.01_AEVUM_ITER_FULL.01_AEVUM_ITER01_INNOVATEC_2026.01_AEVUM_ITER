@@ -1,4 +1,4 @@
-import 'dart:io';
+import '../../../../core/widgets/local_image.dart';
 import '../../../../core/constants/app_constants.dart';
 
 import 'package:flutter/material.dart';
@@ -280,13 +280,8 @@ class _Avatar extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget child = const Icon(Icons.person, size: 24);
     if (path != null && path!.isNotEmpty) {
-      final local = path!.startsWith('/') || path!.contains('emulated');
-      child = local
-          ? Image.file(
-              File(path!),
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => const Icon(Icons.person),
-            )
+      child = isLocalPhoto(path!)
+          ? localImage(path!, iconSize: 24)
           : Image.asset(
               path!,
               fit: BoxFit.cover,

@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/theme/app_colors.dart';
+import '../../../../core/widgets/local_image.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../avatar/presentation/providers/avatar_provider.dart';
 import '../../domain/entities/user_profile.dart';
@@ -43,9 +43,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   Widget _avatarImage(String path, {double fallbackSize = 54}) {
-    final local = path.startsWith('/') || path.contains('emulated');
+    final local = isLocalPhoto(path);
     return local
-        ? Image.file(File(path), fit: BoxFit.cover, errorBuilder: (_, __, ___) => Icon(Icons.person, size: fallbackSize))
+        ? localImage(path, iconSize: fallbackSize)
         : Image.asset(path, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Icon(Icons.person, size: fallbackSize));
   }
 

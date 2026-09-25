@@ -1,8 +1,8 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/theme/app_colors.dart';
+import '../../../../core/widgets/local_image.dart';
 import '../../../result/presentation/providers/result_provider.dart';
 import '../../../test/presentation/providers/test_provider.dart';
 import '../providers/profile_provider.dart';
@@ -22,8 +22,9 @@ class ProfilePage extends ConsumerWidget {
     final progressLabel = '${(progress * 100).round()}%';
     if(profile == null) return const Scaffold(body: Center(child: CircularProgressIndicator(color: AppColors.primary)));
     final path = profile.avatarConfig.avatarPath;
-    final local = path.startsWith('/') || path.contains('emulated');
-    final avatar = local ? Image.file(File(path), fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 60)) : Image.asset(path, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 60));
+    final avatar = isLocalPhoto(path)
+        ? localImage(path, iconSize: 60)
+        : Image.asset(path, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 60));
     return Scaffold(
       body: SafeArea(
         child: ListView(padding: const EdgeInsets.fromLTRB(22, 16, 22, 30), children: [
