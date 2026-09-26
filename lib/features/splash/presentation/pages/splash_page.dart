@@ -75,11 +75,7 @@ class _SplashPageState extends ConsumerState<SplashPage> {
   }
 
   void _refreshCatalogProviders() {
-    ref.invalidate(statesProvider);
-    ref.invalidate(schoolsProvider);
-    ref.invalidate(allLanguagesProvider);
     ref.invalidate(careersCatalogProvider);
-    ref.invalidate(departmentQuestionsProvider);
   }
 
   Future<void> _syncCatalogsInBackground() async {

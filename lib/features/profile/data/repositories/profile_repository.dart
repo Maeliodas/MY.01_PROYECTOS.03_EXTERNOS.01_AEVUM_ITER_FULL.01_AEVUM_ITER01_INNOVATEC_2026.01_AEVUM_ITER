@@ -75,16 +75,17 @@ class ProfileRepository {
       LEFT JOIN ${Tables.states} ps ON ps.id = pm.state_id
       LIMIT 1
     ''');
-    if (results.isNotEmpty && results.first['school_id'] == null) {
-      final row = Map<String, dynamic>.from(results.first);
+    if (results.isEmpty) return null;
+    var first = results.first;
+    if (first['school_id'] == null) {
+      final row = Map<String, dynamic>.from(first);
       row['municipality_id'] = row['pending_municipality_id'];
       row['municipality'] = row['pending_municipality'];
       row['state_id'] = row['pending_state_id'];
       row['state'] = row['pending_state'];
-      results[0] = row;
+      first = row;
     }
-    if (results.isEmpty) return null;
-    final id = results.first['id']?.toString() ?? '1';
+    final id = first['id']?.toString() ?? '1';
     final languageRows = await db.query(
       Tables.profileLanguages,
       columns: ['language_id','type','custom_name'],
@@ -103,6 +104,6 @@ class ProfileRepository {
         ids.add('${kind}_custom_saved_$i');
       }
     }
-    return UserProfile.fromMap(results.first, languageIds: ids);
+    return UserProfile.fromMap(first, languageIds: ids);
   }
 }

@@ -24,7 +24,7 @@ Widget _privacyContent(BuildContext context) {
       ),
       const _Section(
         '2. Datos personales que se recaban',
-        'Nombre, edad, género, estado, municipio, escuela de procedencia, lenguas o idiomas seleccionados, fotografía o imagen de avatar, respuestas del test vocacional, resultado RIASEC con código Holland, carrera recomendada y respuestas complementarias a la pregunta abierta.',
+        'Nombre, edad, género, fotografía o imagen de avatar, respuestas del test vocacional, resultado RIASEC con código Holland, carrera recomendada y respuestas complementarias.',
       ),
       const _Section(
         '3. Datos sensibles',
@@ -72,7 +72,7 @@ Widget _privacyContent(BuildContext context) {
       ),
       const SizedBox(height: 4),
       Text(
-        'Última actualización de este texto: versión AIPROD2.3.0_R3_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
+        'Última actualización de este texto: versión AIPROD2.5.0_R1_IN de ${AppConstants.appName}. No sustituye el aviso de privacidad integral que corresponda a cada instalación.',
         style: TextStyle(fontSize: 12, color: muted),
       ),
     ],
@@ -87,19 +87,6 @@ Future<void> showPrivacyNoticeDialog(BuildContext context) {
     content: _privacyContent(context),
     buttonText: 'Cerrar',
   );
-}
-
-class PrivacyPage extends StatelessWidget {
-  const PrivacyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(title: const Text('Aviso de privacidad')),
-        body: ListView(
-          padding: const EdgeInsets.fromLTRB(22, 16, 22, 32),
-          children: [_privacyContent(context)],
-        ),
-      );
 }
 
 class _Section extends StatelessWidget {

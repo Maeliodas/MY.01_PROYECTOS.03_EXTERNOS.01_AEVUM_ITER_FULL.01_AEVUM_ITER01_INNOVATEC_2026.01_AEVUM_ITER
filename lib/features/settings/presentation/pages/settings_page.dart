@@ -60,7 +60,9 @@ class _Switch extends StatelessWidget {
   final ValueChanged<bool> onChanged;
   const _Switch({required this.icon, required this.iconColor, required this.title, required this.subtitle, required this.value, required this.onChanged});
   @override
-  Widget build(BuildContext context) => SwitchListTile.adaptive(
+  Widget build(BuildContext context) => Material(
+        color: Colors.transparent,
+        child: SwitchListTile.adaptive(
         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
         secondary: Container(width: 42, height: 42, decoration: BoxDecoration(color: iconColor.withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: iconColor)),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
@@ -68,6 +70,7 @@ class _Switch extends StatelessWidget {
         activeThumbColor: AppColors.primary,
         value: value,
         onChanged: onChanged,
+        ),
       );
 }
 
@@ -79,12 +82,15 @@ class _Info extends StatelessWidget {
   final VoidCallback? onTap;
   const _Info({required this.icon, required this.iconColor, required this.title, required this.subtitle, this.onTap});
   @override
-  Widget build(BuildContext context) => ListTile(
+  Widget build(BuildContext context) => Material(
+        color: Colors.transparent,
+        child: ListTile(
         onTap: onTap,
         contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         leading: Container(width: 42, height: 42, decoration: BoxDecoration(color: iconColor.withValues(alpha: .13), borderRadius: BorderRadius.circular(14)), child: Icon(icon, color: iconColor)),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w900)),
         subtitle: Text(subtitle, style: const TextStyle(fontSize: 12)),
         trailing: const Icon(Icons.chevron_right_rounded),
+        ),
       );
 }

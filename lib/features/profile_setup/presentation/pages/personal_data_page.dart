@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -8,6 +7,7 @@ import '../../../avatar/presentation/providers/avatar_provider.dart';
 import '../../../profile/domain/entities/user_profile.dart';
 import '../../../profile/presentation/providers/profile_provider.dart';
 import '../../../../core/widgets/app_back_button.dart';
+import '../../../../core/widgets/local_image.dart';
 
 class PersonalDataPage extends ConsumerStatefulWidget {
   const PersonalDataPage({super.key});
@@ -19,6 +19,7 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
   final nameController = TextEditingController();
   final ageController = TextEditingController(text: '18');
   String gender = 'Otro';
+  bool _saving = false;
 
   @override
   void dispose() {
@@ -30,9 +31,9 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
   @override
   Widget build(BuildContext context) {
     final avatar = ref.watch(avatarProvider);
-    final local = avatar.avatarPath.startsWith('/') || avatar.avatarPath.contains('emulated');
+    final local = isLocalPhoto(avatar.avatarPath);
     final image = local
-        ? Image.file(File(avatar.avatarPath), fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90))
+        ? localImage(avatar.avatarPath)
         : Image.asset(avatar.avatarPath, fit: BoxFit.cover, errorBuilder: (_, __, ___) => const Icon(Icons.person, size: 90));
 
     return Scaffold(
@@ -70,31 +71,42 @@ class _PersonalDataPageState extends ConsumerState<PersonalDataPage> {
                 PrimaryButton(
                   text: 'Continuar',
                   icon: Icons.arrow_forward_rounded,
+                  isLoading: _saving,
                   onPressed: () async {
                     final name = nameController.text.trim();
                     if (name.isEmpty) {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Escribe tu nombre para continuar.')));
                       return;
                     }
-                    final profile = UserProfile(
-                      id: '1',
-                      name: name,
-                      age: int.tryParse(ageController.text.trim()) ?? 18,
-                      gender: gender,
-                      state: 'No especificado',
-                      municipality: 'No especificado',
-                      school: 'No especificada',
-                      speaksLanguages: false,
-                      languagesList: const [],
-                      avatarConfig: ref.read(avatarProvider),
-                      createdAt: DateTime.now(),
-                    );
-                    await ref.read(profileProvider.notifier).saveProfile(profile);
-                    if (context.mounted) context.go('/path-home');
+                    setState(() => _saving = true);
+                    try {
+                      final profile = UserProfile(
+                        id: '1',
+                        name: name,
+                        age: int.tryParse(ageController.text.trim()) ?? 18,
+                        gender: gender,
+                        state: 'No especificado',
+                        municipality: 'No especificado',
+                        school: 'No especificada',
+                        speaksLanguages: false,
+                        languagesList: const [],
+                        avatarConfig: ref.read(avatarProvider),
+                        createdAt: DateTime.now(),
+                      );
+                      await ref.read(profileProvider.notifier).saveProfile(profile);
+                      if (context.mounted) context.go('/path-home');
+                    } catch (e) {
+                      debugPrint('PersonalData: no se pudo guardar el perfil ($e)');
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo guardar: $e')));
+                      }
+                    } finally {
+                      if (mounted) setState(() => _saving = false);
+                    }
                   },
                 ),
                 const SizedBox(height: 16),
-                TextButton.icon(onPressed: () => context.push('/choose-avatar'), icon: const Icon(Icons.edit_outlined), label: const Text('CAMBIAR AVATAR', style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 1))),
+                TextButton.icon(onPressed: () => context.push('/choose-avatar?return=personal-data'), icon: const Icon(Icons.edit_outlined), label: const Text('CAMBIAR AVATAR', style: TextStyle(fontWeight: FontWeight.w800, letterSpacing: 1))),
               ],
             ),
           ),

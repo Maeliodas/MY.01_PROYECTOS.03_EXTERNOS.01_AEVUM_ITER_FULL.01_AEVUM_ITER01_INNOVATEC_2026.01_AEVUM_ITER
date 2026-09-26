@@ -10,7 +10,6 @@ class Tables {
   static const questions = 'questions';
   static const profile = 'user_profile';
   static const profileLanguages = 'user_languages';
-  static const avatar = 'avatar_configuration';
   static const sessions = 'test_sessions';
   static const answers = 'test_answers';
   static const careerOpenAnswers = 'career_open_answers';

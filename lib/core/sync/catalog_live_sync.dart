@@ -54,11 +54,7 @@ class _CatalogLiveSyncState extends ConsumerState<CatalogLiveSync>
       final changed =
           await ref.read(catalogSyncServiceProvider).checkAndSync();
       if (!mounted || !changed) return;
-      ref.invalidate(statesProvider);
-      ref.invalidate(schoolsProvider);
-      ref.invalidate(allLanguagesProvider);
       ref.invalidate(careersCatalogProvider);
-      ref.invalidate(departmentQuestionsProvider);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Catálogos actualizados con novedades del panel.'),

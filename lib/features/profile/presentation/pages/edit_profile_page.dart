@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,10 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/theme/app_colors.dart';
+import '../../../../core/widgets/local_image.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../avatar/presentation/providers/avatar_provider.dart';
-import '../../../catalog/domain/models/catalog_models.dart';
-import '../../../catalog/presentation/providers/catalog_providers.dart';
 import '../../domain/entities/user_profile.dart';
 import '../providers/profile_provider.dart';
 
@@ -20,16 +18,12 @@ class EditProfilePage extends ConsumerStatefulWidget {
 
 class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   late TextEditingController _nameController;
-  String? _stateId, _municipalityId, _schoolId;
 
   @override
   void initState() {
     super.initState();
     final profile = ref.read(profileProvider);
     _nameController = TextEditingController(text: profile?.name ?? '');
-    _stateId = profile?.stateId;
-    _municipalityId = profile?.municipalityId;
-    _schoolId = profile?.schoolId;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final p = ref.read(profileProvider);
       if (p == null) return;
@@ -49,9 +43,9 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   }
 
   Widget _avatarImage(String path, {double fallbackSize = 54}) {
-    final local = path.startsWith('/') || path.contains('emulated');
+    final local = isLocalPhoto(path);
     return local
-        ? Image.file(File(path), fit: BoxFit.cover, errorBuilder: (_, __, ___) => Icon(Icons.person, size: fallbackSize))
+        ? localImage(path, iconSize: fallbackSize)
         : Image.asset(path, fit: BoxFit.cover, errorBuilder: (_, __, ___) => Icon(Icons.person, size: fallbackSize));
   }
 
@@ -59,9 +53,6 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
   Widget build(BuildContext context) {
     final current = ref.watch(profileProvider);
     final avatar = ref.watch(avatarProvider);
-    final statesAsync = ref.watch(statesProvider);
-    final municipalitiesAsync = _stateId == null ? const AsyncData<List<Municipality>>([]) : ref.watch(municipalitiesProvider(_stateId!));
-    final schoolsAsync = _municipalityId == null ? const AsyncData<List<School>>([]) : ref.watch(schoolsByMunicipalityProvider(_municipalityId));
     if (current == null) return const Scaffold(body: Center(child: CircularProgressIndicator()));
 
     return Scaffold(
@@ -125,41 +116,16 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
                 ]),
               ]),
             ),
-            const SizedBox(height: 18),
-            _SectionCard(
-              title: 'Procedencia académica',
-              icon: Icons.school_outlined,
-              child: Column(children: [
-                statesAsync.when(
-                  data: (states) => DropdownButtonFormField<String>(isExpanded: true, initialValue: states.any((x) => x.id == _stateId) ? _stateId : null, decoration: const InputDecoration(labelText: 'Estado', prefixIcon: Icon(Icons.location_on_outlined)), items: states.map((x) => DropdownMenuItem(value: x.id, child: Text(x.name, maxLines: 1, overflow: TextOverflow.ellipsis))).toList(), onChanged: (v) => setState(() { _stateId = v; _municipalityId = null; _schoolId = null; })),
-                  loading: () => const LinearProgressIndicator(), error: (_, __) => const Text('No se pudieron cargar los estados.'),
-                ),
-                const SizedBox(height: 14),
-                municipalitiesAsync.when(
-                  data: (items) => DropdownButtonFormField<String>(isExpanded: true, initialValue: items.any((x) => x.id == _municipalityId) ? _municipalityId : null, decoration: const InputDecoration(labelText: 'Municipio', prefixIcon: Icon(Icons.map_outlined)), items: items.map((x) => DropdownMenuItem(value: x.id, child: Text(x.name, maxLines: 1, overflow: TextOverflow.ellipsis))).toList(), onChanged: (v) => setState(() { _municipalityId = v; _schoolId = null; })),
-                  loading: () => const LinearProgressIndicator(), error: (_, __) => const Text('No se pudieron cargar los municipios.'),
-                ),
-                const SizedBox(height: 14),
-                schoolsAsync.when(
-                  data: (items) => DropdownButtonFormField<String>(isExpanded: true, initialValue: items.any((x) => x.id == _schoolId) ? _schoolId : null, decoration: const InputDecoration(labelText: 'Escuela de procedencia', prefixIcon: Icon(Icons.school_outlined)), items: items.map((x) => DropdownMenuItem(value: x.id, child: Text(x.name, maxLines: 1, overflow: TextOverflow.ellipsis))).toList(), onChanged: (v) => setState(() => _schoolId = v)),
-                  loading: () => const LinearProgressIndicator(), error: (_, __) => const Text('No se pudieron cargar las escuelas.'),
-                ),
-              ]),
-            ),
             const SizedBox(height: 22),
             PrimaryButton(
               text: 'Guardar cambios', icon: Icons.save_rounded,
-              onPressed: _stateId == null || _municipalityId == null || _schoolId == null ? null : () async {
-                final states = await ref.read(statesProvider.future);
-                final municipalities = await ref.read(municipalitiesProvider(_stateId!).future);
-                final schools = await ref.read(schoolsByMunicipalityProvider(_municipalityId).future);
-                final st = states.firstWhere((x) => x.id == _stateId);
-                final mun = municipalities.firstWhere((x) => x.id == _municipalityId);
-                final school = schools.firstWhere((x) => x.id == _schoolId);
+              onPressed: () async {
                 final updated = UserProfile(
                   id: current.id, name: _nameController.text.trim().isEmpty ? current.name : _nameController.text.trim(),
-                  age: current.age, gender: current.gender, stateId: st.id, state: st.name,
-                  municipalityId: mun.id, municipality: mun.name, schoolId: school.id, school: school.name,
+                  age: current.age, gender: current.gender,
+                  stateId: current.stateId, state: current.state,
+                  municipalityId: current.municipalityId, municipality: current.municipality,
+                  schoolId: current.schoolId, school: current.school,
                   speaksLanguages: current.speaksLanguages, languageIds: current.languageIds, languagesList: current.languagesList,
                   avatarConfig: ref.read(avatarProvider), createdAt: current.createdAt,
                 );

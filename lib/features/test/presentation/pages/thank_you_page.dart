@@ -10,7 +10,6 @@ import '../../../profile/presentation/providers/profile_provider.dart';
 import '../../../result/data/result_local_datasource.dart';
 import '../../../result/domain/services/result_calculator.dart';
 import '../../../result/presentation/providers/result_provider.dart';
-import '../../data/test_local_datasource.dart';
 import '../providers/test_provider.dart';
 
 class ThankYouPage extends ConsumerStatefulWidget {
@@ -56,33 +55,8 @@ class _ThankYouPageState extends ConsumerState<ThankYouPage> {
       }
       final sessionId = test.sessionId ??
           DateTime.now().millisecondsSinceEpoch.toString();
-      // La pregunta abierta es obligatoria: si existe pregunta para el
-      // departamento del top 1 y aún no hay respuesta, se regresa a ella.
       // Se fija el top calculado aquí para que coincida con lo guardado.
       final topCareer = ranking.first;
-      String topDepartment = '';
-      for (final c in careers) {
-        if (c.id == topCareer.careerId) {
-          topDepartment = c.department;
-          break;
-        }
-      }
-      final needsOpen = topDepartment.isNotEmpty &&
-          (await ref.read(departmentQuestionsProvider.future))
-              .any((q) => q.department == topDepartment);
-      if (needsOpen) {
-        final openAnswers =
-            await TestLocalDatasource().getCareerOpenAnswers(sessionId);
-        final hasTopAnswer = openAnswers.any(
-          (a) =>
-              (a['career_id'] ?? '') == topCareer.careerId &&
-              (a['answer'] ?? '').trim().length >= 10,
-        );
-        if (!hasTopAnswer) {
-          if (mounted) context.go('/open-question');
-          return;
-        }
-      }
       _setStatus('Guardando tu resultado…');
       final resultId = await ref.read(resultDatasourceProvider).saveResult(
             sessionId: sessionId,

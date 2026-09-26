@@ -1,12 +1,12 @@
 <div align="center">
   <img src="assets/branding/app_logo_light.png" alt="Aevum Iter" width="160"/>
 
-  # Aevum Iter AIPROD2.3.0_R3_IN
+  # Aevum Iter AIPROD2.5.0_R1_IN
 
   **Descubre tu camino** — Orientación vocacional con modelo RIASEC / Holland, operación offline-first y panel institucional en tiempo real.
   Edición de presentación comercial.
 
-  [![release](https://img.shields.io/badge/release-AIPROD2.3.0__R3__IN-0262FC?style=for-the-badge)](README_VERSION_2.3.0.md)
+  [![release](https://img.shields.io/badge/release-AIPROD2.5.0__R1__IN-0262FC?style=for-the-badge)](README_VERSION_2.5.0.md)
   [![flutter](https://img.shields.io/badge/Flutter-3.x-02569B?style=for-the-badge&logo=flutter&logoColor=white)](.)
   [![dart](https://img.shields.io/badge/Dart-%5E3.2-0175C2?style=for-the-badge&logo=dart&logoColor=white)](.)
   [![node](https://img.shields.io/badge/Node.js-Express_4-339933?style=for-the-badge&logo=node.js&logoColor=white)](.)
@@ -32,7 +32,6 @@
 |---|---|
 | 📝 Test RIASEC | 30 reactivos offline, puntajes 0–50 por dimensión y código Holland de 3 letras |
 | 🎯 Ranking de carreras | Afinidad por perfil vectorial + congruencia hexagonal Holland, top 3 |
-| 💬 Pregunta abierta | Obligatoria (mín. 10 caracteres), ligada al departamento del top 1; no modifica puntaje y no se puede saltar por URL |
 | 🏫 Catálogos vivos | Versionados con atajo por versión y UPSERT rápido: sync acotado en arranque, en vivo al reanudar/cada 5 min, manual en Ajustes |
 | 🗣️ Lenguas e idiomas | Clasificación por tipo relacional + sugerencias ciudadanas con aprobación administrativa |
 | 📴 Offline-first | SQLite local precargado, verificación contra el backend (`/health`), colas de envío con tope de reintentos |
@@ -40,12 +39,12 @@
 | 🔒 Datos | UTF-8/utf8mb4 integral, bajas lógicas (`active=0`) que no rompen históricos, IDs de resultado UUID |
 
 <div align="center">
-  <img src="assets/avatars/avatar_01.png" width="64"/>
-  <img src="assets/avatars/avatar_02.png" width="64"/>
-  <img src="assets/avatars/avatar_03.png" width="64"/>
-  <img src="assets/avatars/avatar_04.png" width="64"/>
-  <img src="assets/avatars/avatar_05.png" width="64"/>
-  <img src="assets/avatars/avatar_06.png" width="64"/>
+  <img src="assets/avatars/avatar_01.png" width="80"/>
+  <img src="assets/avatars/avatar_02.png" width="80"/>
+  <img src="assets/avatars/avatar_03.png" width="80"/>
+  <img src="assets/avatars/avatar_04.png" width="80"/>
+  <img src="assets/avatars/avatar_05.png" width="80"/>
+  <img src="assets/avatars/avatar_06.png" width="80"/>
   <br/>
   <em>Avatares incluidos + editor con galería y cámara</em>
 </div>
@@ -56,18 +55,17 @@
 flowchart LR
     E[Estudiante] --> A[App Flutter<br/>offline-first]
     A -->|1. Reactivos| C{Cálculo RIASEC}
-    C -->|2. Top 1| P[Pregunta abierta<br/>por departamento]
-    P -->|3. Respuesta| R[Resultado + Holland]
-    R -->|4. Cola sync| N[Panel Node/Express]
+    C -->|2. Top 1| R[Resultado + Holland]
+    R -->|3. Cola sync| N[Panel Node/Express]
     N --> M[(MySQL / MariaDB)]
     M --> D[Dashboard + PDF]
-    N -->|5. Versión ligera<br/>+ snapshot| A
+    N -->|4. Versión ligera<br/>+ snapshot| A
 ```
 
 1. El splash sincroniza catálogos (acotado) **antes** de navegar: los datos nuevos se ven desde la 1ª apertura.
 2. El test se responde **sin internet** contra el SQLite local, con progreso reanudable.
-3. Al terminar reactivos se calcula el ranking y se exige la pregunta abierta del departamento ganador.
-4. El resultado (Holland, RIASEC, top 1, abierta, género, edad, escuela, lenguas) se envía o encola con reintentos acotados.
+3. Al terminar reactivos se calcula el ranking y se guarda el resultado.
+4. El resultado (Holland, RIASEC, top 1, género, edad, escuela, lenguas) se envía o encola con reintentos acotados.
 5. Con red, la app revisa la versión del panel al reanudar y cada 5 min; sin red, lo pendiente entra en el siguiente arranque.
 
 ## 🛠️ Stack
@@ -106,6 +104,13 @@ flutter run --dart-define=AEVUM_ITER_API_URL=http://IP_DE_TU_PC:8080/api
 
 > En producción usa exclusivamente la URL HTTPS institucional y define `AEVUM_ITER_API_KEY` con el mismo valor de `API_INGEST_KEY` del panel.
 
+**🌐 Versión web demo (para exposiciones):**
+```bash
+flutter run -d chrome --dart-define=AEVUM_ITER_API_URL=http://IP_DE_TU_PC:8080/api
+# o servir el build: flutter build web + hosting estático de build/web
+```
+En web la BD vive en IndexedDB (sqlite3.wasm), el seed entra por JSON y las fotos usan blob-URLs. Si la consola marca errores de `SharedArrayBuffer`, sirve con cabeceras COOP/COEP.
+
 </details>
 
 <details>
@@ -135,7 +140,7 @@ Panel en `http://localhost:8080` · Salud en `GET /health`.
 
 ## 🔢 Versionado
 
-Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.3.0_R3_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.3.0_R3_IN`):
+Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, versión y revisiones con guion bajo — `AIPROD2.5.0_R1_IN` (en builds empaquetados se inserta plataforma: `AIPRODAndroid2.5.0_R1_IN`):
 
 | Parte | Significado | Cuándo cambia |
 |---|---|---|
@@ -151,10 +156,13 @@ Esquema estilo ZZZ (`OSPRODAndroid3.2.0_R…_S…_D…`): siglas+canal pegados, 
 
 | Versión | Cambios (general) | Detalle |
 |---|---|---|
-| [AIPROD2.3.0_R3_IN](README_VERSION_2.3.0.md) | Nueva identidad + recorte comercial: sync silencioso, aviso extenso y flujo de avatar confirmado | [Ver detalle](README_VERSION_2.3.0.md) |
+| [AIPROD2.5.0_R1_IN](README_VERSION_2.5.0.md) | Soporte web demo (SQLite wasm, seed JSON, visor iframe) | [Ver detalle](README_VERSION_2.5.0.md) |
+| [AIPROD2.4.0_R5_IN](README_VERSION_2.4.0.md) | Launcher con fondo transparente | [Ver detalle](README_VERSION_2.4.0.md) |
+| [AIPROD2.3.1_R4_IN](README_VERSION_2.3.1.md) | Retorno directo a datos desde custom | [Ver detalle](README_VERSION_2.3.1.md) |
+| [AIPROD2.3.0_R10_IN](README_VERSION_2.3.0.md) | Retiro del detalle técnico del splash | [Ver detalle](README_VERSION_2.3.0.md) |
 
 ---
 
 <div align="center">
-  <sub>Aevum Iter AIPROD2.3.0_R3_IN · Rama Innovatec · Uso institucional</sub>
+  <sub>Aevum Iter AIPROD2.5.0_R1_IN · Rama Innovatec · Uso institucional</sub>
 </div>
